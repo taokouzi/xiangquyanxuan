@@ -1,0 +1,42 @@
+<!--miniprogram/pages/User/pages/news/index.wxml-->
+<van-toast id="custom-selector" />
+<scroll-view style="height:100vh;" scroll-y="true" bindscrolltolower="fnnews">
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+
+<view wx:else class="news">
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+    <view class='nav-title'>
+      <text class="fs15">系统消息</text>
+      <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+        <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+      </view>
+    </view>
+  </view>
+
+
+<view class="line" style='padding-top:{{nav.navHeight}}px'></view>
+  <view class="line"></view>
+        <view wx:if="{{ news.length > 0 }}">
+            <view class="li rds {{ item.show?'show':'' }}" wx:for="{{ news }}" data-index="{{ index }}" data-item="{{ item.show }}"  wx:key="index" bindtap="showItem">
+                <h1 class="fs15 bold ai" style="position:relative;">
+                    {{ item.title }}
+                    <image mode="widthFix" class="img" src="/images/you.png" alt=""></image>
+                </h1>
+                <view class="fs12 hui" style="padding:8rpx 0">{{ item.sendTime ? item.sendTime : '加载中...' }}</view>
+                <view class="fs13 xx {{ item.show?'':'num1' }}">{{ item.content }}</view>
+            </view>
+
+            <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+        </view>
+        <view wx:else>
+            <view class="fs14 hui" style="text-align:center;padding-top:200rpx;">
+                <image mode="widthFix" style="width:300rpx;margin:30rpx auto;" src="/images/notnews.png" alt=""></image>
+                还没有相关消息哦！
+            </view>
+        </view>
+    </view>
+    </scroll-view>

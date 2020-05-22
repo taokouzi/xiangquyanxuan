@@ -1,0 +1,102 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/me/index",
+    "pages/order/index"
+  ],
+  "subpackages": [
+    {
+      "root": "pages/User",
+      "pages": [
+        "pages/addrEdit/index",
+        "pages/addrList/index",
+        "pages/myCustom/index",
+        "pages/myinfo/index",
+        "pages/myprofit/index",
+        "pages/teamList/index",
+        "pages/syEcharts/index",
+        "pages/searchTeamList/index",
+        "pages/tx/index",
+        "pages/txList/index",
+        "pages/teamInfo/index",
+        "pages/userEcharts/index",
+        "pages/userEcharts2/index",
+        "pages/idCode/index",
+        "pages/news/index",
+        "pages/writeOrder/index"
+      ]
+    },
+    {
+      "root": "pages/Main",
+      "pages": [
+        "pages/details/index",
+        "pages/orderPay/index",
+        "pages/authorize/index",
+        "pages/arrange/index",
+        "pages/bindUserPage/index",
+        "pages/expressList/index",
+        "pages/orderDetails/index",
+        "pages/orderDetailsShare/index",
+        "pages/paySuccess/index",
+        "pages/postSale/index",
+        "pages/postSaleDetails/index",
+        "pages/detailsPreview/index"
+      ]
+    },
+    {
+      "root": "pages/Other",
+      "pages": [
+        "pages/city/index",
+        "pages/none/index",
+        "pages/QApage/index",
+        "pages/rule/index"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#FF4900",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/ic1.png",
+        "selectedIconPath": "images/ic1a.png"
+      },
+      {
+        "pagePath": "pages/order/index",
+        "text": "订单",
+        "iconPath": "images/ic3.png",
+        "selectedIconPath": "images/ic3a.png"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我的",
+        "iconPath": "images/ic4.png",
+        "selectedIconPath": "images/ic4a.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-popup": "@vant/weapp/popup",
+    "van-dialog": "@vant/weapp/dialog",
+    "van-index-bar": "@vant/weapp/index-bar",
+    "van-index-anchor": "@vant/weapp/index-anchor",
+    "van-cell": "@vant/weapp/cell",
+    "van-picker": "@vant/weapp/picker",
+    "van-tab": "@vant/weapp/tab",
+    "van-tabs": "@vant/weapp/tabs",
+    "van-skeleton": "@vant/weapp/skeleton",
+    "van-toast": "@vant/weapp/toast"
+  }
+}

@@ -1,0 +1,146 @@
+<!--index.wxml-->
+<van-toast id="custom-selector" />
+
+<import src ="/template/cardList/leftRight.wxml"/>
+
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">订单</text>
+  </view>
+</view>
+
+ <!-- style="margin-top:{{nav.navHeight}}px" -->
+<view class="swiper-tab" style="top:{{nav.navHeight}}px">
+
+<van-tabs active="{{tabActive}}" bind:change="toggleMenu" line-width="12" swipeable animated>
+    <van-tab wx:for="{{tabs}}" wx:key="key" title="{{ item.title }}" style="min-height:{{ wx.windowHeight-100/750*wx.windowWidth-nav.navHeight*.9 }}px;background:#f5f5f5;">
+
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+
+<view wx:else>
+<view wx:if="{{ datas.length > 0 }}">
+  <scroll-view scroll-y='true' class="swiper-box" style="height:{{ wx.windowHeight-100/750*wx.windowWidth-nav.navHeight }}px" bindscrolltolower='fnList'>
+    <view class="line"></view>
+    <view class="order-list">
+    <block wx:for="{{datas}}" wx:key="index">
+      <view class="order rds">
+        <view class="clear fs13">
+          <span class="fs12 hui left">订单编号：<i class="">{{ item.id }}</i></span>
+          <span class="fs12 right" style="color:#FF4900;">
+            {{  item.orderStatus == 0 ? '待支付' : 
+                item.orderStatus == 1 ? '已支付' : 
+                item.orderStatus == 2 ? '已发货' : 
+                item.orderStatus == 3 ? '已完成' : 
+                item.orderStatus == 4 ? '已关闭' : '其他'  }}
+          </span>
+        </view>
+        <!-- 跳转到商品详情 /pages/Main/pages/details/index?id={{item.commodityId}}-->
+        <navigator url="/pages/Main/pages/orderDetails/index?id={{item.id}}&type={{item.orderType == 1 ? 1 : 2 }}" hover-class="none">
+          <template data="{{ title:item.title, firstPic:item.firstPic, buyPrice:item.price, buyNum:item.num, specsName:item.specsName }}" is="order"/>
+        </navigator>
+        <view class="li clear ai" wx:if="{{ item.freight && item.freight > 0 }}" style="position:relative;padding:0;padding-bottom:16rpx;">
+          <span class="fs12 hui left">物流</span>
+          <span class="right step fs10 hui">￥<i class="n fs12">{{ item.freight || 0 }}</i></span>
+        </view>
+        <!-- 立减红包 -->
+        <view class="li clear ai" wx:if="{{ item.redPacket && item.redPacket > 0 }}" style="position:relative;padding:0;padding-bottom:16rpx;">
+          <span class="fs12 hui left">立减</span>
+          <span class="right step fs10 red">-￥<i class="n fs12">{{ item.redPacket || 0 }}</i></span>
+        </view>
+        <view class="li clear ai xix xixb" style="position:relative;padding:0;padding-bottom: 20rpx;">
+          <span class="fs12 hui left">合计</span>
+
+          <wxs module="priceNum">
+            var numberToFix= function (value) {
+              return value.toFixed(2)
+            }
+            module.exports.numberToFix=numberToFix;
+          </wxs>
+          <span class="right step fs10" style="color:#FF4900;">
+            ￥<i class="n fs14">{{ priceNum.numberToFix(( item.price || 0 )*( item.num || 0 )+( item.freight || 0 )-( item.redPacket || 0 )) }}</i>
+          </span>
+        </view>
+
+        <!-- 到家 -->
+        <view class="see-details-box clear" wx:if="{{item.orderType == 1}}">
+          <text wx:if="{{ item.courierCode }}" class="left fs13 hui">{{ item.courierCompanyName }} <span style="color:#1989fa;" class="fs13 n">{{ item.courierCode }}</span></text>
+          <span wx:if="{{item.orderStatus==2}}" class="right fs12 see-details" style="border-color:rgba(255, 73, 0, 0.2);color:#FF4900;margin-left:20rpx;" bindtap="confirmSend" data-id="{{ item.id }}">确认收货</span>
+          <navigator url="/pages/Main/pages/orderDetails/index?id={{item.id}}&type=1" hover-class="none" class="right fs12 see-details">查看详情</navigator>
+        </view>
+        
+        <!-- 到店 -->
+        <view class="see-details-box clear" wx:elif="{{item.orderType == 2}}">
+            <text wx:if="{{item.courierCode}}" class="left fs13 hui">{{ item.courierCompanyName }} <span style="color:#1989fa;" class="fs13 n">{{ sp.courierCode }}</span></text>
+            <navigator style="margin-left:20rpx;" url="/pages/Main/pages/orderDetails/index?id={{item.id}}&type=2" hover-class="none" class="right fs12 see-details">查看详情</navigator>
+            <navigator url="/pages/Main/pages/arrange/index?id={{item.id}}&specsName={{item.specsName}}" class="right fs12 see-details" style="margin-left:20rpx;" wx:if="{{item.showBook}}">立即预约</navigator>
+            <span class="right fs12 see-details" data-id="{{item.id}}" bindtap="fnScan">电子码</span>
+        </view>
+      </view>
+    </block> 
+    </view>
+    <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+  </scroll-view>
+</view>
+<view wx:else>
+    <view class="fs14 hui" style="text-align:center;padding-top:300rpx;">
+        <image mode="widthFix" style="width:300rpx;margin:30rpx auto;" src="/images/error.png" alt=""></image>
+        还没有相关订单哦
+    </view>
+</view>
+</view>
+
+
+</van-tab>
+        </van-tabs>
+
+</view>
+
+<wxs module="fn">
+  var timestampToTime= function (timestamp) {
+    var date = getDate(timestamp),
+    Y = date.getFullYear() + '-',
+    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
+    D = (date.getDate() < 10?'0'+date.getDate():date.getDate()) + ' ',
+    h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':',
+    m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':',
+    s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
+  }
+  module.exports.timestampToTime=timestampToTime;
+</wxs>
+<!-- 电子码弹窗 -->
+<van-popup 
+show="{{showQrCode}}" 
+round 
+bind:close="closeBuySure" 
+class="_scode">
+  <swiper
+    bindchange="changeSwpIdx" 
+    current="{{swpIdx}}" 
+    class="scode-box-item">
+    <block wx:for="{{dzCodes}}" data-txt="{{i}}" wx:for-index="i" wx:key="index">
+      <swiper-item class='_item'>
+        <view class="scode-box {{ i==swpIdx?'on':'' }}" style="display:inline-block;">
+            <view class="fs14" style="margin-top:28rpx;color:#333;">向商家出示电子码</view>
+            <view class="qrCode" style="position:relative;width:360rpx;height:360rpx;margin:27rpx auto;">
+                <image src="{{ item.codeSrc }}" style="width:360rpx;height:360rpx;position:relative;z-index:998;"></image>
+                <view class="aj" wx:if="{{ item.status != 1 || item.nowTime >=item.effectTimeEnd}}" style="position:absolute;top:0;left:0;background:rgba(255,255,255,.9);right:0;bottom:0;z-index:999;">
+                    <view class="fs13" style="color:#FF4900;">
+                    {{item.status==2? ( item.verifyDate ? ("已验证"+ fn.timestampToTime(item.verifyDate)):'已验证' ):(item.status==3 || item.nowTime >=item.effectTimeEnd)?'已过期':item.status==4?'已废弃':'其他'}}
+                    </view>
+                </view>
+            </view>
+            <view class="fs16" wx:if="{{ item.status != 1 || item.nowTime >=item.effectTimeEnd }}" style="letter-spacing: 2px;color:#FF4900;font-weight:bold;">-</view>
+            <view class="fs16" wx:else style="letter-spacing: 2px;color:#FF4900;font-weight:bold;">{{ item.code }}</view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+   <view class="dots aj" wx:if="{{ dzCodes.length > 1 }}"> 
+    <block wx:for="{{dzCodes}}" data-txt="{{i}}" wx:for-index="i"> 
+      <view class="dot{{i == swpIdx ? ' active' : ''}}"></view> 
+    </block> 
+  </view> 
+</van-popup>

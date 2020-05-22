@@ -1,0 +1,70 @@
+<van-toast id="custom-selector" />
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">团长贡献数据</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+<view class="box-chart" style='padding-top:{{nav.navHeight*1.4}}px'>
+  <van-tabs animated swipeable bind:change="onChange" type="card">
+    <van-tab title="贡献数据">
+      <view class="kuai fff">
+      <!-- 贡献收益 -->
+        <view style="margin-top:0;">
+          <view class="fs14 d-title d1"><i></i>贡献收益</view>
+          <view class="ab">
+            <text class="fs10">贡献总收益</text>
+            <view class="fs12">
+              <text class="fs10">￥</text>{{ gxTotal }}
+            </view>
+          </view>
+          <view class="ab">
+            <text class="fs10">近7日贡献总额</text>
+            <view class="fs12">
+              <text class="fs10">￥</text>{{ gxWeekly }}
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="container line-chart">
+        <ec-canvas id="ec1" canvas-id="ec-canvas1"></ec-canvas>
+      </view>
+      <ul class="aj hui fs12">
+          <li class="ai">
+              <span class="x x1" style="margin-right:8rpx;"></span>
+              <span class="fs10">贡献收益</span>
+          </li>
+      </ul>
+    </van-tab>
+    <van-tab title="达人数据">
+       <view class="kuai fff">
+          <!-- 达人增速 -->
+          <view>
+            <view class="fs14 d-title d2"><i></i>达人数据</view>
+            <view class="ab">
+              <text class="fs10">达人总人数</text>
+              <view class="fs12">{{ drTotal }}</view>
+            </view>
+            <view class="ab">
+              <text class="fs10">近7日新增达人成员总人数</text>
+              <view class="fs12">{{ drWeekly }}</view>
+            </view>
+          </view>
+        </view>
+      <view class="container line-chart">
+        <ec-canvas id="ec2" canvas-id="ec-canvas2"></ec-canvas>
+      </view>
+      <ul class="aj hui fs12">
+          <li class="ai">
+              <span class="x x2" style="margin-right:8rpx;"></span>
+              <span class="fs10">达人增速</span>
+          </li>
+      </ul>
+    </van-tab>
+  </van-tabs>
+</view>

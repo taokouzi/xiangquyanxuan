@@ -1,0 +1,126 @@
+<van-toast id="custom-selector" />
+<import src ="/template/cardList/leftRight.wxml"/>
+
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">售后</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+
+<view wx:else style='margin-top:{{nav.navHeight}}px;background:#f5f5f5;' class="edit-addr rds">
+<form bindsubmit="goPostSaleDetails">   
+  <view class="line"></view>
+  <view class="order rds" style="padding:24rpx;padding-bottom:0;">
+      <view class="clear fs13">
+          <span class="fs13 hui left">订单编号：<i class="">{{ or.id }}</i></span>
+      </view>
+      <navigator url="/pages/Main/pages/details/index?id={{or.commodityId}}" hover-class="none">
+          <template data="{{ title: or.title, firstPic: or.firstPic, buyPrice: or.price*or.num-(or.redPacket||0), specsName: or.specsName, buyNum: -1 }}" is="order"/>
+      </navigator>
+  </view>
+  <view class="line"></view>
+  
+  <view class="rds postSale">
+      <view class="li ai xix xixb" bindtap="showLayer1">
+          <span class="fs14">售后类型</span>
+          <view class="img ai">
+              <span class="fs14 hui">{{ datas[typeIdx].typeValue }}</span>
+              <image mode="widthFix" style="width:16rpx;margin-left:10rpx;" src="/images/you.png" alt=""></image>
+          </view>
+      </view>
+
+      <view class="li ai xix xixb" bindtap="showLayer2">
+          <span class="fs14">申请原因</span>
+          <view class="img ai">
+              <span class="fs14 hui">{{ datas[typeIdx].serviceTypeReasonVoList[whyIdx].reason }}</span>
+              <image mode="widthFix" style="width:16rpx;margin-left:10rpx;" src="/images/you.png" alt=""></image>
+          </view>
+      </view>
+
+      <view class="li ai xix xixb shuo-ming">
+          <span class="fs14 span">原因说明</span>
+          <textarea maxlength="200" bindinput="fnNum" name="shuoMing" style="position:relative;top:3rpx;" class="hui fs14" placeholder="选填"></textarea>
+          <!-- <view wx:else class="textarea">
+            <text class="hui fs14" style="position:relative;top:-4rpx;">选填</text>
+          </view> -->
+          <span class="zishu hui fs12">{{shuoMing.length}}<i style="padding:0 2rpx;">/</i>200</span>
+      </view>
+  </view>
+  <view class="line"></view>
+  
+
+  <view class="rds photo">
+      <view class="fs14">照片描述</view>
+      <view class="clear _update">
+        <view class="left clear" wx:if="{{ imgs.length > 0 }}">
+          <view wx:for="{{ imgs }}" class="left view-img">
+            <image mode="widthFix" data-idx="{{index}}" bindtap="previewImg" class="update-img" src='{{item}}'/>
+            <image class="close-img" data-idx="{{index}}" bindtap="deleteImg" mode="widthFix" src='/images/close-img.png'/>
+          </view>
+        </view>
+        <image class="left" wx:if="{{ imgs.length < 4 }}" style="width:160rpx;height:160rpx;" bindtap="uploadImg" mode="widthFix" src="/images/update-img.png"></image>
+      </view>
+
+  </view>
+  <view class="line"></view>
+  
+
+  <view class="rds postSale postSale2">
+
+      <view class="li ai xix xixb" wx:if="{{ serviceTypeId!=1 }}">
+          <span class="fs14">申请退款金额</span>
+          <label class="ai" style="position: inherit;right:0;">
+              <i class="fs12">￥</i>
+              <input style="width:90%;" name="refundAmount" placeholder="请输入申请退款金额" type="digit" class="fs14 n" value="" />
+          </label>
+      </view>
+
+      <view class="li ai xix xixb">
+          <span class="fs14">联系电话</span>
+          <label>
+              <input style="width:100%;" placeholder="请输入联系电话" name="phone" type="number" class="fs14 n" value="" />
+          </label>
+      </view>
+  </view>
+
+  <view class="footer ai" style="padding-bottom:{{isIphoneFullScreen?'50rpx':'0'}};height:{{isIphoneFullScreen?'160':'120'}}rpx;">
+      <button class="btn fs14" form-type='submit'>提交申请</button>
+  </view>
+
+
+
+  <!-- 售后类型 -->
+   <view bindtap="fnhideLayer1" class="opacity {{ showSHtype?'active':'' }}"></view>
+    <view class="layer content1 {{ showSHtype?'active':'' }}" style="bottom:{{ -ht1+'px' }}">
+      <view class="fs15 view">售后类型</view>
+      <view class="ly-box">
+        <view class="clear ai" bindtap="fnWhyRadio1" data-id="{{ item.id }}" data-index="{{index}}" wx:for="{{ datas }}" wx:key="index">
+          <view class="left fs13">{{ item.typeValue }}</view>
+          <image class="right" mode="widthFix" style="width:28rpx;height:28rpx;" src="/images/{{ typeIdx==index?'xuanz':'xuan' }}.png"></image>
+        </view>
+      </view>
+    </view>
+
+  <!-- 申请原因 -->
+    <view bindtap="fnhideLayer2" class="opacity {{ showSHwhy?'active':'' }}"></view>
+    <view class="layer content2 {{ showSHwhy?'active':'' }}" style="bottom:{{ -ht2+'px' }}">
+      <view class="fs15 view">申请原因</view>
+      <view class="ly-box">
+        <view class="clear ai" bindtap="fnWhyRadio2" data-id="{{ item.id }}" data-index="{{index}}" wx:for="{{ datas[typeIdx].serviceTypeReasonVoList }}" wx:key="index">
+          <view class="left fs13">{{ item.reason }}</view>
+          <image class="right" mode="widthFix" style="width:28rpx;height:28rpx;" src="/images/{{ whyIdx==index?'xuanz':'xuan' }}.png"></image>
+        </view>
+      </view>
+    </view>
+  
+</form>
+</view>

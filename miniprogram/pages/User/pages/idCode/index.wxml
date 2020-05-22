@@ -1,0 +1,66 @@
+<!--miniprogram/pages/User/pages/idCode/index.wxml-->
+<van-toast id="custom-selector" />
+<view class="me">
+  <view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+    <view class='nav-title'>
+      <text class="fs15">我的{{ type=='tz'?'团长':'推广员' }}码</text>
+      <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+        <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="ma-box" style='padding-top:{{nav.navHeight}}px'>
+
+    <image src="{{ewmsrc}}" bindload="posterLoad" style="width:400rpx;height:400rpx;margin:0 auto;" class="ma"></image>
+
+    <view class="ab" style="padding:0 40rpx;">
+      <view class="btn fs14 save-btn" bindtap="savePosterLayer">保存图片</view>
+      <button class="btn"  open-type="share" hover-class="other-button-hover">
+        <span class="fs14 share-btn">分享给好友</span>
+      </button>
+    </view>
+    
+    <view class="m-title">
+      <view class="fs16">我的信息</view>
+      <view style="width:100%;">
+        <view class="ab fs13">
+          <text>头像</text>
+          <image src="{{users.headImg}}" style="width:50rpx;height:50rpx;border-radius:50%;"></image>
+        </view>
+        <view class="ab fs13">
+          <text>昵称</text>
+          <text>{{users.userName}}</text>
+        </view>
+        <view class="ab fs13">
+          <text>当前分享身份状态</text>
+          <text>{{ userTypes[userType].val }}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="m-title">
+      <view class="fs16">二维码</view>
+      <view style="width:100%;">
+        <view class="ab fs13">
+          <text>生成时间</text>
+          <text>{{ewmTime}}</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+</view>
+
+
+<van-popup show="{{ showPosterLayer }}" bind:close="onCloseShowPosterLayer" class="showPosterLayer">
+  <view class="fs12 fff" style="padding-bottom:8rpx;">保存{{ type=='tz'?'团长':'推广员' }}二维码海报至相册</view>
+  <view class="fs10 fff" style="padding-bottom:20rpx;">好友扫码提升身份，TA购物你得返利</view>
+  
+  <image class="poster-img" bindload="posterLoad" src="{{posterImg}}"></image>
+  <button class="btn fs12" bindtap="savePoster">保存到本地</button>
+</van-popup>

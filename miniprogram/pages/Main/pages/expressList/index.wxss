@@ -1,0 +1,61 @@
+/* miniprogram/pages/Main/pages/expressList/index.wxss */
+@import "/template/step/topBottom.wxss";
+.m-top{
+    height: 22vw;
+    background: #FFC800;
+    color: #ffffff;
+    position: relative;
+    box-sizing: content-box;
+}
+.m-top>view{
+    padding-left: 24rpx;
+}
+image.xiaox{
+    width: 22vw;
+    height: 22vw;
+    position: absolute;
+    right:24rpx;
+    object-fit: cover;
+}
+.li{
+    position: relative;
+    padding:30rpx 24rpx;
+    display: flex;
+}
+.icon{
+    width: 36rpx;
+    margin-right: 20rpx;
+}
+.box{
+    flex: 1;
+    white-space:pre-line;
+}
+.order{
+    padding:30rpx 24rpx;
+}
+.see-details-box{
+    text-align: right;
+    margin-top: 30rpx;
+}
+.see-details{
+    display: inline-block;
+    height: 48rpx;
+    line-height: 48rpx;
+    padding:0 20rpx;
+    border-radius: 40rpx;
+    border:1rpx solid #999999;
+    background: transparent;
+}
+.order .li{
+    position: relative;
+    padding:30rpx 24rpx;
+    display: flex;
+}
+.order .li .ai{
+    position: absolute;
+    right: 24rpx;
+}
+.order .li .right{
+    position: absolute;
+    right: 0;
+}

@@ -1,0 +1,68 @@
+ .cardList2{padding-bottom: 20rpx;}
+ .cardList2 .price-box{
+      padding:2rpx 0 10rpx 0;
+      position: relative;
+  }
+  .cardList2 .tips{
+      padding: 16rpx 0;
+      margin-right: 10rpx;
+  }
+   .cardList2 .tips li{
+      padding:6rpx 10rpx;
+      background: rgba(255,73,0,.2);
+      border-radius: 200rpx;
+  }
+  .cardList2 .volume{
+      position: absolute;
+      right: 0;
+  }
+  .cardList2 .red{
+      color: #FF4900;
+  }
+   .cardList2 .now-price{
+      padding-right: 20rpx;
+  }
+   .cardList2 .c-box{
+      background: #ffffff;
+      overflow: hidden;
+      padding-bottom: 20rpx;
+  }
+  .cardList2 .text-box{
+      padding:20rpx;
+  }
+  .cardList2 .img-box{
+      position: relative;
+  }
+  .cardList2 .img-box>image{
+      /* height: 45.9vw; */
+      object-fit: cover;
+  }
+ .cardList2  .icon-tip{
+      width: auto;
+      height: 44rpx;
+  }
+  .cardList2 .status{
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      color: #ffffff;
+      text-align: center;
+  }
+  .cardList2 .status span{
+      position: absolute;
+      z-index: 2;
+      color: #ffffff;
+      top: 0;
+      margin-left: -6rpx;
+      display: block;
+      line-height: 44rpx;
+      text-align: center;
+  }
+  .cardList2 .old-price{
+      text-decoration: line-through;
+  }
+  .cardList2._list{
+    -webkit-box-shadow: 10rpx 10rpx 20rpx #e9e9e9;
+    box-shadow: 10rpx 10rpx 20rpx #e9e9e9;
+  }

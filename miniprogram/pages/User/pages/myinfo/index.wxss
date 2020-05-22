@@ -1,0 +1,68 @@
+@import "/template/empower/layerCenter.wxss";
+.li{
+    position: relative;
+    padding:36rpx 24rpx;
+}
+.li img:nth-of-type(2){
+    position: absolute;
+    right: 24rpx;
+}
+.li .ai{
+    position: absolute;
+    right: 24rpx;
+}
+.header{
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+}
+.not-btn{
+  background: transparent !important;
+}
+.edit-nick{
+    border:1rpx solid #ccc;
+    width:85%;
+    display: block;
+    margin: 40rpx auto;
+    height: 24px;
+    padding:5px;
+    box-sizing:content-box;
+    text-align: left;
+}
+.edit-btns button{
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  background: transparent;
+  outline: transparent;
+  border-color: transparent;
+  color: #333;
+  margin-top:0;
+}
+.edit-btns button::after{
+  border-color: transparent;
+}
+.layer{
+  width:70vw;
+  margin-left: -35vw;
+  padding-bottom: 2vw;
+}
+.layer view{
+  padding: 0;
+}
+.ok{
+  color: #FF4900 !important;
+}
+
+.btn1{
+  background: rgba(255,195,0,.9);
+  color: #333 !important;
+}
+.btn1:active{
+  background: rgba(229,180,18,1);
+  transition: all .1s ease-in-out;
+  -webkit-transition: all .1s ease-in-out;
+}
+.btn2{
+  background: rgba(255,73,0,.9);
+}

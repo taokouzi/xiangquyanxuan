@@ -1,0 +1,36 @@
+/* miniprogram/pages/Main/pages/paySuccess/index.wxss */
+.pay{
+    padding: 3vw;
+}
+.pay-icon{
+    width: 160rpx;
+    height: 160rpx;
+    margin: 100rpx auto;
+}
+.pay-li{
+    padding: 12rpx 24rpx;
+    display: flex;
+}
+.pay-li text{
+    float: left;
+}
+.pay-li .hui{
+    display: inline-block;
+    width: 160rpx;
+}
+.pay-li text:nth-of-type(2){
+    flex: 1;
+}
+.btn{
+    width: 100%;
+    margin-top: 100rpx;
+}
+.go-home{
+    border:1rpx solid #FF4900;
+    color: #FF4900;
+    background: transparent;
+    margin: 40rpx auto;
+}
+.go-home:active{
+    background: #eeeeee;
+}

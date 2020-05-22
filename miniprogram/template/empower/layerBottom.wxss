@@ -1,0 +1,60 @@
+.layer{
+  width:100vw;
+  height:48vw;
+  position:fixed;
+  bottom:-48vw;
+  left:0;
+  z-index:666;
+  background:#ffffff;
+  border-radius:24rpx 24rpx 0 0;
+  transition: bottom .1s ease-out;
+}
+.layer.active{
+  bottom:0 !important;
+  transition: bottom .3s ease-out;
+}
+.opacity{
+  position:fixed;
+  opacity:0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -2;
+  background: rgba(0,0,0,.85);
+  transition: opacity .1s ease-out,z-index 0s;
+}
+.opacity.active{
+  opacity: 1;
+  z-index: 20;
+  transition: opacity .3s ease-out,z-index 0s;
+}
+.layer .image{
+  width: 100rpx;
+  margin:0 auto;
+}
+/* .layer>view,.layer>.view{
+  display: inline-block;
+  width: 33.333%;
+  text-align: center;
+  margin-top:50rpx;
+}
+.layer>view>view,.layer>.view>view{
+  padding-top:10rpx;
+} */
+.layer button{
+  background: transparent;
+  outline: none;
+  border: none;
+}
+.layer button.fs16{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #1989fa;
+  line-height: 120rpx;
+}
+.layer button::before,.layer button::after{
+  border: none;
+}

@@ -1,0 +1,79 @@
+/* 步骤条（竖向） */
+.steps {
+    overflow: hidden;
+    background-color: #fff;
+    display: block;
+    padding: 0 0 0 32px;
+}
+.step:first-child::before {
+    position: absolute;
+    top: 0;
+    left: -15px;
+    z-index: 1;
+    width: 1px;
+    height: 20px;
+    background-color: #fff;
+    content: '';
+}
+.step {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    color: #969799;
+    font-size: 14px;
+    display: block;
+    float: none;
+    padding: 10px 10px 10px 0;
+    line-height: 18px;
+}
+.step::after {
+    position: absolute;
+    box-sizing: border-box;
+    content: ' ';
+    pointer-events: none;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border: 0 solid #ebedf0;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+}
+.step-icon {
+    position: absolute;
+    top: 19px;
+    left: -15px;
+    z-index: 2;
+    font-size: 12px;
+    line-height: 1;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.step-line {
+    top: 16px;
+    left: -15px;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    background-color: #ebedf0;
+}
+.step-icon i {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background-color: #969799;
+    border-radius: 50%;
+}
+.step:last-child .step-line{
+  width: 0;
+}
+.active .step-icon i,.steps .step:nth-of-type(1) .step-icon i{
+    background-color: #FF4900;
+    width: 8px;
+    height: 8px;
+}
+.active,.steps .step:nth-of-type(1){
+  color: #333333;
+}
+/* 步骤条（竖向）end */

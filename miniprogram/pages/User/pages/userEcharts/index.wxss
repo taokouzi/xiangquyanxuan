@@ -1,0 +1,72 @@
+/**index.wxss**/
+.ec-canvas {
+width: 100%;
+height: 100%;
+}
+.line-chart{
+width: 100vw;
+height: 120vw;
+}
+
+page{
+  background: #ffffff;
+}
+
+
+/* .user{
+    min-height: 100vh;
+    background: #ffffff;
+} */
+h1.bold{
+    padding: 24rpx;
+    padding-bottom: 0;
+}
+ul.aj{
+    padding: 24rpx;
+}
+ul.aj .x{
+    display: inline-block;
+    height:12rpx;
+    width:12rpx;
+    border-radius: 20rpx;
+    margin-right: 4rpx;
+}
+li.aj{
+    margin-right: 20rpx;
+}
+li.aj:last-child{
+    margin-right: 0;
+}
+.x1,.d1 i{
+    background: linear-gradient(to right,#fccb05, #f5804d);
+}
+.x2{
+    background: linear-gradient(to right,#8bd46e, #09bcb7);
+}
+.x3{
+    background: linear-gradient(to right,#248ff7, #6851f1);
+}
+.d-title i{
+  display: inline-block;
+  width: 6rpx;
+  border-radius: 6rpx;
+  height: 20rpx;
+  margin-right: 10rpx;
+  position: relative;
+  top: 0;
+}
+.d-title{
+  padding-bottom:12rpx;
+}
+.ab{
+  padding: 4rpx 0;
+}
+.kuai{
+  padding: 24rpx;
+}
+.kuai>view{
+  margin-top:24rpx;
+}
+.bg-red,page{
+  background: #3E404F;
+}

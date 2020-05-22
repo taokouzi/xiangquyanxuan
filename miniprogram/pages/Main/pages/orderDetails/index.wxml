@@ -1,0 +1,284 @@
+<van-toast id="custom-selector" />
+<import src ="/template/cardList/leftRight.wxml"/>
+<import src ="/template/step/topBottom.wxml"/>
+<import src ="/template/cardList/cardList2.wxml"/>
+
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+
+<view wx:else>
+<view class="nav" style="height:{{nav.navHeight}}px;background:{{showNav?'#ffffff':transparent}};">
+  <view class='nav-title'>
+    <text wx:if="{{ showNav }}" class="fs15">订单详情</text>
+    <view class="jiaonang aj" style="left:0;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;background:transparent;box-shadow:0 0 1rpx transparent;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;margin-left:-12rpx;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px;opacity:0;"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;opacity:0;"></view>
+    </view>
+  </view>
+</view>
+
+
+<view style="height:{{ nav.navHeight }}px;background:#FFC800;"></view>
+<view class="m-top ai">
+    <view>
+        <view class="fs16 num1" style="padding-bottom:8rpx;">
+            {{ orstatus[or.orderStatus].title }}
+        </view>
+        <view class="fs12 num1" wx:if="{{type==1}}">{{ orstatus[or.orderStatus].text }}</view>
+        <view class="fs12 num1" wx:else>祝您天天好心情</view>
+    </view>
+    <image mode="widthFix" wx:if="{{ orstatus[or.orderStatus].title }}" class="xiaox" src="{{ orstatus[or.orderStatus].src }}"></image>
+</view>
+
+<!-- 快递 -->
+<view class="xix xixb rds" wx:if="{{ or.courierNum }}">
+    <view class="li ai num1" style="padding-bottom:16rpx;">
+        <image mode="widthFix" class="icon" src="/images/kd.png"></image>
+        <span class="fs14" style="margin-right:10rpx;">{{ or.ccn }}</span>
+        <!-- <textarea readonly id="ordernum" style="width:0;height:0;opacity:0;">{{ or.courierNum }}</textarea> -->
+        <span class="fs13 ai" bindtap="copyWLCode" data-code="{{ or.courierNum }}" style="color:#1989fa;"> <i class="fs13 num1" style="display:inline-block;max-width:38vw;">{{ or.courierNum }}</i></span>
+    </view>
+
+    <!-- 有物流信息列表 -->
+    <navigator url="/pages/Main/pages/expressList/index?id={{or.id}}&wls={{ wls }}"  hover-class="none" class="li ai" wx:if="{{expressNow.AcceptStation}}" style="padding-top:0;position:relative;">
+        <view style="padding-left:56rpx;padding-right:16rpx;">
+            <view class="fs12 hui">
+                {{ expressNow.AcceptStation }}
+            </view>
+            <view class="fs12 hui" style="padding-top:16rpx;">{{ expressNow.AcceptTime || '' }}</view>
+        </view>
+        <image mode="widthFix" src="/images/you.png" style="width:16rpx;position:absolute;right:24rpx;" alt=""></image>
+    </navigator>
+    
+    <view wx:elif="{{ expressNow.ShipperName }}">
+        <view class="li" style="padding-left:80rpx;padding-right:16rpx;padding-top:0;">
+            <view class="fs12 hui">您的订单已导入，商家正通知快递公司取件</view>
+        </view>
+    </view>
+    
+</view>
+<view class="line"></view>
+
+
+<!-- 个人信息 -->
+<view class="li ai xix xixb num1 rds">
+    <image mode="widthFix" class="icon" src="/images/{{ type==1?'dz':'user' }}.png" style="width:30rpx;" alt=""></image>
+    <view class="box">
+        <view class="fs14">
+            <span class="fs14">{{ or.consignee }}</span>
+            <span class="fs14" style="padding-left:20rpx;">{{ or.consigneeMobile }}</span>
+        </view>
+        <view class="fs14" wx:if="{{type==1}}" style="padding:12rpx 0;">{{ (or.receiptArea||'') + (or.addressInfo||'') }}</view>
+        <view wx:if="{{ or.remark }}" class="fs12 hui">备注：{{ or.remark }}</view>
+    </view>
+</view>
+<view class="line"></view>
+
+<view class="order rds">
+    <view class="clear fs13">
+        <span class="fs13 hui left">订单编号：<i class="">{{ or.id }}</i></span>
+    </view>
+    <navigator url="/pages/Main/pages/details/index?id={{or.commodityId}}" hover-class="none">
+        <template data="{{ title: or.title, firstPic: or.firstPic, buyPrice: or.price, specsName: or.specsName, buyNum: or.num }}"  is="order" />
+    </navigator>
+    <view class="li clear ai" wx:if="{{ type==1 && or.freight && or.freight > 0 }}" style="position:relative;padding:0;padding-bottom:16rpx;">
+        <span class="fs13 hui left">物流</span>
+        <span class="right step2 fs10 hui">￥<i class="n fs13">{{ or.freight || 0 }}</i></span>
+    </view>
+    <view class="li clear ai" wx:if="{{ or.redPacket && or.redPacket > 0 }}" style="position:relative;padding:0;padding-bottom:16rpx;">
+      <span class="fs13 hui left">立减</span>
+      <span class="right step2 fs10 red">-￥<i class="n fs13">{{ or.redPacket || 0 }}</i></span>
+    </view>
+    <view class="li clear he-ji ai {{or.orderStatus!=3?'xix xixb':''}}" style="position:relative;padding:0;">
+        <span class="fs13 hui left">合计</span>
+        <wxs module="priceNum">
+          var numberToFix= function (value) {
+            return value.toFixed(2)
+          }
+          module.exports.numberToFix=numberToFix;
+        </wxs>
+        <span class="right step2 fs10" style="color:#FF4900;">￥<i class="n fs14">{{ priceNum.numberToFix((or.price||0)*(or.num||0) + (or.freight || 0)-(or.redPacket || 0)) }}</i></span>
+    </view>
+
+    <view class="see-details-box clear" wx:if="{{or.orderStatus!=3}}">
+      <button wx:if="{{userState==0}}" class="not-btn fs12 right see-details tuijian" style="margin-left:20rpx;" open-type='getUserInfo'  bindgetuserinfo="fnGetUserInfo">我要晒单</button>
+      <button wx:else class="not-btn fs12 right see-details tuijian" style="margin-left:20rpx;" open-type="share" hover-class="other-button-hover">
+      我要晒单</button>
+      <button wx:if="{{phoneState==0}}" open-type='getPhoneNumber' bindgetphonenumber='fnGetPhoneNumber' class="not-btn right fs12 see-details" style="margin-left:20rpx;">
+        {{ (complaintRecordStatus >= 0 || complaintRecordStatus == -1) ?'售后详情':'售后' }}
+      </button>
+      <navigator wx:else url="/pages/Main/pages/{{ (complaintRecordStatus >= 0 || complaintRecordStatus == -1) ? 'postSaleDetails': 'postSale' }}/index?id={{or.id}}&maxRefundAmount={{ maxRefundAmount }}&type={{type}}" class="right fs12 see-details" style="margin-left:20rpx;">
+        {{ (complaintRecordStatus >= 0 || complaintRecordStatus == -1) ?'售后详情':'售后' }}
+      </navigator>
+      <navigator url="/pages/Main/pages/arrange/index?id={{or.id}}&specsName={{or.specsName}}" class="right fs12 see-details" wx:if="{{type==2 && showBook}}">立即预约</navigator>
+    </view>
+
+    <!-- 已完成的订单 不能发起售后，但可以查看售后详情 -->
+    <view class="see-details-box clear" wx:elif="{{or.orderStatus==3 && (complaintRecordStatus >= 0 || complaintRecordStatus == -1)}}">
+      <button wx:if="{{userState==0}}" class="not-btn fs12 right see-details tuijian" style="margin-left:20rpx;" open-type='getUserInfo'  bindgetuserinfo="fnGetUserInfo">我要晒单</button>
+      <button wx:else class="not-btn fs12 right see-details tuijian" style="margin-left:20rpx;" open-type="share" hover-class="other-button-hover">
+      我要晒单</button>
+      <navigator url="/pages/Main/pages/postSaleDetails/index?id={{or.id}}&maxRefundAmount={{ maxRefundAmount }}&type={{type}}" class="right fs12 see-details" style="margin-left:20rpx;">售后详情</navigator>
+      <navigator url="/pages/Main/pages/arrange/index?id={{or.id}}&specsName={{or.specsName}}" class="right fs12 see-details" wx:if="{{type==2 && showBook}}">立即预约</navigator>
+    </view>
+
+    <view class="see-details-box clear" wx:else>
+      <button wx:if="{{userState==0}}" class="not-btn fs12 right see-details tuijian" style="margin-left:20rpx;" open-type='getUserInfo'  bindgetuserinfo="fnGetUserInfo">我要晒单</button>
+      <button wx:else class="not-btn fs12 right see-details tuijian" style="margin-left:20rpx;" open-type="share" hover-class="other-button-hover">
+      我要晒单</button>
+    </view>
+
+
+</view>
+<view class="line"></view>
+
+
+
+
+
+<!-- 电子码 -->
+<view class="order rds" wx:if="{{ecodeVOS.length>0}}">
+    <h1 class="fs16">电子码</h1>
+    <view class="steps" style="padding:0;">
+        <view bindtap="fnScan" data-index="{{index}}" style="padding:12rpx 0;" wx:for="{{ecodeVOS}}" wx:key="index">
+            <view class="ai {{item.status==1?'red':'hei'}}" style="line-height:60rpx;position:relative;">
+                <span class="fs14" style="letter-spacing:1px;">{{ item.code }}</span>
+                <image src="/images/{{ item.status==1?'ewm-icon0':'ewm-icon' }}.png" style="width:26rpx;height:26rpx;margin-left:20rpx;" alt="" />
+                <span class="fs13" style="position:absolute;right:0;">
+                    {{ item.status == 1 ? '未使用' : item.status == 2 ? '已验证' : item.status == 3 ? '已过期' : item.status == 4 ? '已废弃' : '其他' }}
+                </span>
+            </view>
+            <view class="fs12 hui" wx:if="{{item.verifyDate}}" style="padding-top:6rpx;">{{ item.verifyDate }}</view>
+        </view>
+        
+    </view>
+</view>
+<view class="line" wx:if="{{ecodeVOS.length>0}}"></view>
+
+
+
+<wxs module="fn">
+  var timestampToTime= function (timestamp) {
+    var date = getDate(timestamp),
+    Y = date.getFullYear() + '-',
+    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
+    D = (date.getDate() < 10?'0'+date.getDate():date.getDate()) + ' ',
+    h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':',
+    m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':',
+    s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
+  }
+  module.exports.timestampToTime=timestampToTime;
+</wxs>
+<!-- 预约记录 -->
+<view class="order rds" wx:if="{{bookRecordVOS.length>0}}">
+    <h1 class="fs16">预约记录</h1>
+    <view class="steps2">
+        <a href="javascript:;" bindtap="fnOpenLocation" style="padding:12rpx 0;display:block;" wx:for="{{bookRecordVOS}}" wx:key="index">
+            <view class="ai" style="line-height:60rpx;position:relative;">
+                <span class="fs14" style="letter-spacing:1px;">{{ fn.timestampToTime(item.bookDate) }}</span>
+                <span class="fs13 num1" style="position:absolute;right:0;max-width:45vw;">{{ item.branchName }}</span>
+            </view>
+        </a>
+        
+    </view>
+</view>
+<view class="line" wx:if="{{bookRecordVOS.length>0}}"></view>
+
+
+
+<!-- 详细记录 -->
+<view class="order rds">
+    <h1 class="fs16">详细记录</h1>
+    <template data="{{ or:or, th3:1 }}" is="stepTopBottom" />
+</view>
+<view class="line"></view>
+</view>
+
+
+
+
+<!-- 你可能感兴趣 -->
+<view class="order rds" wx:if="{{goods.length>0}}">
+    <h1 class="fs16">你可能感兴趣</h1>
+    <view class="cl2 clear" style="margin-top:24rpx;">
+        <!-- <view class="list-index" wx:for="{{ goods }}" wx:key="key">
+          <navigator url="/pages/Main/pages/details/index?id={{item.id}}" hover-class="none">
+            <template data="{{ item }}" is="cardList2"/>
+          </navigator>
+        </view> -->
+        <view id="left">
+          <view class="list-index" wx:for="{{ leftList }}" wx:key="key">
+            <navigator url="/pages/Main/pages/details/index?id={{item.id}}" hover-class="none">
+                <template data="{{ item }}" is="cardList2"/>
+            </navigator>
+          </view>
+        </view>
+        <view id="right">
+          <view class="list-index" wx:for="{{ rightList }}" wx:key="key">
+            <navigator url="/pages/Main/pages/details/index?id={{item.id}}" hover-class="none">
+                <template data="{{ item }}" is="cardList2"/>
+            </navigator>
+          </view>
+        </view>
+    </view>
+    <view bindtap="gohome" class="look-more fs13 hui">点击查看更多</view>
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 电子码弹窗 -->
+<van-popup 
+show="{{showQrCode}}" 
+round 
+bind:close="closeBuySure" 
+
+class="_scode">
+  <swiper
+    bindchange="changeSwpIdx" 
+    class="scode-box-item" 
+    current="{{swpIdx}}">
+    <block wx:for="{{ecodeVOS}}" data-txt="{{i}}" wx:for-index="i" wx:key="*this">
+      <swiper-item class='_item'>
+        <view class="scode-box {{ i==swpIdx?'on':'' }}" style="display:inline-block;">
+            <view class="fs14" style="margin-top:28rpx;color:#333;">向商家出示电子码</view>
+            <view class="qrCode" style="position:relative;width:360rpx;height:360rpx;margin:27rpx auto;">
+                <image src="{{ item.codeSrc }}" style="width:360rpx;height:360rpx;position:relative;z-index:998;"></image>
+                <view class="aj" wx:if="{{ item.status != 1 || item.nowTime >=item.effectTimeEnd}}" style="position:absolute;top:0;left:0;background:rgba(255,255,255,.9);right:0;bottom:0;z-index:999;">
+                    <view class="fs13" style="color:#FF4900;">
+                    {{item.status==2? ( item.verifyDate ? ("已验证"+ fn.timestampToTime(item.verifyDate)):'已验证' ):(item.status==3 || item.nowTime >=item.effectTimeEnd)?'已过期':item.status==4?'已废弃':'其他'}}
+                    </view>
+                </view>
+            </view>
+            <view class="fs16" wx:if="{{ item.status != 1 || item.nowTime >=item.effectTimeEnd }}" style="letter-spacing: 2px;color:#FF4900;font-weight:bold;">-</view>
+            <view class="fs16" wx:else style="letter-spacing: 2px;color:#FF4900;font-weight:bold;">{{ item.code }}</view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+   <view class="dots aj" wx:if="{{ ecodeVOS.length > 1 }}"> 
+    <block wx:for="{{ecodeVOS}}" data-txt="{{i}}" wx:for-index="i"> 
+      <view class="dot{{i == swpIdx ? ' active' : ''}}"></view> 
+    </block> 
+  </view> 
+</van-popup>

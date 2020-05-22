@@ -1,0 +1,33 @@
+<!--miniprogram/pages/Other/pages/city/index.wxml-->
+<van-toast id="custom-selector" />
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+    <view class='nav-title'>
+      <text class="fs15">选择站点</text>
+      <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+        <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+      </view>
+    </view>
+  </view>
+<view class="line" style='padding-top:{{nav.navHeight}}px'></view>
+
+<view wx:if="{{showList}}" class="cityPosition">
+  <view style="padding:20rpx 32rpx;background:#ffffff;">
+    <!-- 当前站点 -->
+    <view style="padding-bottom:20rpx;">
+      <view class="fs14" style="margin-bottom: 20rpx;">当前站点</view>
+      <ul>
+        <li class="fs13" data-item="{{ nowCity }}" bindtap="fnSelectCity">{{ nowCity.c }}</li>
+      </ul>
+    </view>
+  </view>
+
+  <!-- 城市列表 -->
+  <van-index-bar index-list="{{cityList.cityIdx}}">
+    <view wx:for="{{cityList.citys}}" wx:key="index">
+      <van-index-anchor index="{{item.w}}" />
+      <van-cell data-item="{{item}}" bindtap="fnSelectCity" wx:for="{{item.option}}"  wx:key="index"  wx:for-item="ct" title="{{ct.c}}" />
+    </view>
+  </van-index-bar>
+</view>

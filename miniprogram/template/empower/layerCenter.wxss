@@ -1,0 +1,42 @@
+.opacity{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 9;
+  background: rgba(0,0,0,.85);
+}
+.layer{
+  position: fixed;
+  width: 56vw;
+  /* height: 36vw; */
+  background: #ffffff;
+  text-align: center;
+  margin:-18vw 0 0 -28vw;
+  left: 50%;
+  top: 42%;
+  z-index: 10;
+  padding-bottom: 5vw;
+  border-radius:1vh;
+}
+.layer view{
+  padding:5vw 0;
+}
+.layer button{
+  width: 80%;
+  background: #FF4900;
+  color: #ffffff;
+  height:10vw;
+  border-radius: 10vw;
+  margin-top:5vw;
+}
+.layer button.pay{
+  background: #07C160;
+}
+.layer button.phone{
+  background: #1989FA;
+}
+.layer button.msg{
+  background: #000000;
+}

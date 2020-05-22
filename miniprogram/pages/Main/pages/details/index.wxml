@@ -1,0 +1,279 @@
+<van-toast id="custom-selector" />
+
+<import src ="/template/empower/layerBottom.wxml"/>
+
+<view class="nav {{ showNav?'bg-red':'' }}" style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text wx:if="{{ showNav }}" class="fs15">商品详情</text>
+    <view class="jiaonang aj {{ showNav ? 'not-d' : '' }}" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.height}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view wx:if="{{ isthome }}" class="thome" style="width:{{jiaonang.height}}px;height:{{jiaonang.height}}px;" bindtap='navHome'></view>
+      <view wx:else class="tback" style="width:{{jiaonang.height}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+      <!-- <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navHome'></view> -->
+    </view>
+  </view>
+</view>
+
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+
+<view style="padding-bottom:150rpx;background:#ffffff;" wx:else>
+<view class="img-box" style="position:relative;">
+    <swiper style="width:100%;height:750rpx;" bindchange="detailsSwperChange"
+      autoplay="true" interval="3000" circular="true">
+      <block wx:for="{{ details.picUrls }}" wx:key="*this">
+        <swiper-item>
+          <image bindtap="previewImg" data-idx="{{index}}" class="img imgLoad" style="width:100%;height:750rpx;" mode="aspectFill" src="{{ item ? item : '/images/imgLoad.png' }}" lazy-load="true"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <div class="custom-indicator ai">
+      <span class="fs12">{{nowSwpIdxActive}}</span><i class="fs12" style="padding:0 4rpx;">/</i><span class="fs12">{{ details.picUrls.length }}</span>
+    </div>
+</view>
+
+<view class="text-box">
+    <view class="clear price-box ai">
+        <span class="left fs12 red now-price">￥<i class="fs18 bold n">{{ details.commoditySpecses[idx].sellingPrice }}</i></span>
+        <span class="left fs12 old-price hui" style="position:relative;top:2rpx;">原价<i class="fs10">￥</i><span class="n">{{ details.commoditySpecses[idx].originalPrice }}</span></span>
+
+        <view class="tips clear">
+          <view wx:if="{{ state != '' && details.commoditySpecses[idx].currentStock && state != 5 && state != 6 && details.commoditySpecses[idx].rebate}}" class="left fan red fs10 li hongbao">返<i class="fs10">￥</i><span class="n">{{ details.commoditySpecses[idx].rebate }}</span></view>
+          <view wx:if="{{ state != 5 && state != 6 && details.commoditySpecses[idx].redPacket }}" class="left fan fs10 li red">立减<i class="fs10">￥</i><span class="n">{{ details.commoditySpecses[idx].redPacket }}</span></view>
+        </view>
+        
+        <button class="share not-btn" style="padding:0;" open-type='getUserInfo' wx:if="{{userState==0}}" bindgetuserinfo="fnGetUserInfo">
+            <image mode="widthFix" src="/images/share.png" alt=""></image>
+            <view class="fs10 hui" style="position:relative;top:-4rpx;">分享</view>
+        </button>
+        <view class="share" wx:else bindtap="fnshowLayerShare">
+            <image mode="widthFix" src="/images/share.png" alt=""></image>
+            <view class="fs10 hui" style="position:relative;top:-4rpx;">分享</view>
+        </view>
+    </view>
+    
+    <view class="fs14">{{ details.title }}</view>
+    
+    <view class="clear price-box ai num-box">
+        <span class="left fs12 hui">已售<i class="">{{ details.commoditySpecses[idx].salesVolume }}</i></span>
+        <span class="right fs12 volume hui" style="text-align:right;">剩余<i class="">{{ (details.commoditySpecses[idx].currentStock && state != 5 && state != 6) ? details.commoditySpecses[idx].currentStock : 0 }}</i></span>
+    </view>
+</view>
+
+<view class="line"></view>
+
+<!-- 选择 -->
+<view class="sel-li">
+    <span class="fs14 hui">选择</span>
+    <view class="sel-list">
+        <view class="tips clear">
+            <li bindtap="changeSpecs" data-idx="{{index}}" class="left fan fs13 {{ index == idx ? 'active' : '' }}" wx:for="{{ details.commoditySpecses }}" wx:key="index">{{ item.specName }}</li>
+        </view>
+        <view class="fs14 hui">{{ details.commoditySpecses[idx].description }}</view>
+    </view>
+</view>
+
+
+
+<!-- 到店门店地址 -->
+<view wx:if="{{ storeAddress.length > 0 }}" class="line"></view>
+<view wx:if="{{ storeAddress.length > 0 }}" class="details">
+    <h1 class="d-title fs16 ai" style="padding-bottom:4rpx;"><i></i>门店地址</h1>
+    <ul class="clear store-address" style="padding-bottom:4rpx;">
+        <li class="ai xix xixb" style="padding:20rpx 24rpx;display:flex;" wx:for="{{storeAddress}}" wx:key="index" wx:if="{{index< (!showAddressMore ? 3 : storeAddress.length)}}">
+            <a href="javascript:;" bindtap="fnOpenLocation" data-item="{{item}}" class="ai" style="flex:1 1 auto;padding-left:36rpx;margin-right:48rpx;">
+                <image style="width:20rpx;height:24rpx;position: absolute;left:24rpx;" src="/images/dw.png" alt="" />
+                <view style="margin-left:4rpx;">
+                    <span class="fs13">{{ item.branchName }}</span>
+                    <view class="fs11" style="margin-top:8rpx;color:#666666;">{{ item.address }}</view>
+                </view>
+            </a>
+            <view data-tel="{{item.telephone}}" bindtap="fnphone" style="width:72rpx;position: absolute;right:0;display:block;height:72rpx;">
+                <image style="width:24rpx;height:24rpx;margin:24rpx auto;" src="/images/dtela.png" alt="" />
+            </view>
+        </li>
+    </ul>
+    <view wx:if="{{storeAddress.length > 3}}">
+        <view bindtap="toggleStoreAddress" class="fs12 aj" style="text-align:center;padding:20rpx 0 32rpx 0;color:#666666;">
+            {{ !showAddressMore ?'查看更多门店':'收起' }}<image class="show-more {{!showAddressMore?'on':'off'}}" style="width:20rpx;height:20rpx;" src="/images/you.png" alt="" />
+        </view>
+    </view>
+</view>
+
+
+
+<view class="line"></view>
+
+<!-- 商品详情 -->
+<view class="details">
+    <view class="d-title fs16 ai"><i></i>商品详情</view>
+    <view class="nodes">
+      <rich-text class="d-more" nodes="{{nodes}}"></rich-text>
+    </view>
+</view>
+</view>
+
+
+<!-- 抢购倒计时 -->
+<view class="djs ai" wx:if="{{state==4.5 && details.commoditySpecses[idx].currentStock > 0}}" style="bottom:{{isIphoneFullScreen?'180':'140'}}rpx;">
+  <view class="fs12 ai">
+    <image class="fs12" style="width:20rpx;height:20rpx;margin-right:2rpx;display:inline-block;" src="/images/biao.png" alt="" />
+    活动结束仅剩
+  </view>
+  <i class="ing-end-time fs10">{{ time.h }}</i>
+  <b>:</b>
+  <i class="ing-end-time fs10">{{ time.m }}</i>
+  <b>:</b>
+  <i class="ing-end-time fs10">{{ time.s }}</i>
+</view>
+
+<view class="d-footer clear ai com1" style="padding-bottom:{{isIphoneFullScreen?'50rpx':'0'}};height:{{isIphoneFullScreen?'160':'120'}}rpx;">
+    <view class="d-phone left" bindtap="fnhome">
+        <image mode="scaleToFill" src="/images/home.png" alt=""></image>
+        <view class="fs10 hui">首 页</view>
+    </view>
+
+    <view bindtap="fnKefu" style="padding:0;display:inline-block;margin:0;background:transparent;" class="d-phone left">
+        <image mode="scaleToFill" src="/images/phone.png" alt=""></image>
+        <view class="fs10 hui">咨询客服</view>
+    </view>
+    
+
+    <view class="btn btn-box" style="width:65vw;border-radius:88rpx;overflow:hidden;background: transparent;">
+      <!-- 分享给好友 -->
+      <!-- 授权用户信息 -->
+      <button class="share not-btn"  class="btn left fs14" style="border-radius:0;right:32.5vw;width:32.5vw;background: #FFC300;color:#333;" open-type='getUserInfo' wx:if="{{userState==0}}" bindgetuserinfo="fnGetUserInfo">
+            <text>分享给好友</text>
+      </button>
+      <!-- 实际上的分享 -->
+      <button wx:else bindtap="fnshowLayerShare" class="btn left fs14" style="border-radius:0;right:32.5vw;width:32.5vw;background: #FFC300;color:#333;" 
+          >
+            <view wx:if="{{ state != '' && details.commoditySpecses[idx].rebate && state != 5 && state != 6 && details.commoditySpecses[idx].currentStock > 0}}" >
+                <text class="fs13" style="position:relative;top:-13rpx;">分享给好友</text>
+                <text class="fs10 block" style="position:relative;top:-36rpx;font-size:17rpx;line-height:32rpx;">好友购买返利￥{{ details.commoditySpecses[idx].rebate }}</text>
+            </view>
+            <text wx:else>分享给好友</text>
+      </button>
+
+      <!-- 购买 -->
+      <button class="btn right fs14 details-btn" style="background:{{ (state =='' || state =='5.5') ? 'rgba(255,73,0,.7)' : 'rgba(153,153,153,.8)' }}" wx:if="{{state==5 || state==5.5 || state==6 || state =='' || details.commoditySpecses[idx].currentStock <= 0}}">
+          {{ state ==''?'加载中...':state==6?'已下架':state==5.5?'待抢购...':'已售罄' }}
+      </button>
+      <view wx:else class="btn right details-btn">
+        <button wx:if="{{phoneState==0}}" class="fff fs14" style="background:#FF4900;height:80rpx;line-height:80rpx;"  open-type='getPhoneNumber' bindgetphonenumber="fnGetPhoneNumber">立即购买</button>
+        <button class="fff fs14" style="background:#FF4900;height:80rpx;line-height:80rpx;" data-id="{{ newId }}" data-pic="{{ details.picUrls[0] }}" data-details="{{ details.commoditySpecses[idx] }}" data-title="{{ details.title }}" bindtap="goBuy">立即购买</button>
+      </view>
+    </view>
+</view>
+
+
+<!-- 回到顶部 -->
+<image class="go-top {{ showGoTopBtn?'':'hide' }}" bindtap="goTop" src="/images/you.png" alt="" />
+
+
+
+<!-- 底部分享弹窗 -->
+<view class="showLayerShare">
+  <view bindtap="fncloseLayerShare" class="opacity {{ showLayerShare?'active':'' }}"></view>
+  <view class="layer {{ showLayerShare?'active':'' }}">
+    <button class="view" open-type="share" hover-class="other-button-hover">
+      <image class="image" mode="widthFix" src="/images/shareBtn.png"></image>
+      <view class="fs14 hui">分享给好友</view>
+    </button>
+    <view bindtap="fnShowPosterLayer">
+      <image class="image" mode="widthFix" src="/images/ewmBtn.png"></image>
+      <view class="fs14 hui">生成海报</view>
+    </view>
+    <view bindtap="copyPath">
+      <image class="image" mode="widthFix" src="/images/copyBtn.png"></image>
+      <view class="fs14 hui">复制链接</view>
+    </view>
+  </view>
+</view>
+
+
+
+<!-- 海报图片 -->
+<van-popup show="{{ showPosterLayer }}" bind:close="onCloseShowPosterLayer" class="showPosterLayer">
+  <view class="fs12 fff" style="padding-bottom:20rpx;">保存海报至相册后，可分享给好友或朋友圈</view>
+  <image class="poster-img" bindload="posterLoad" src="{{posterImg}}"></image>
+  <button class="btn fs12" bindtap="savePoster">保存到本地</button>
+</van-popup>
+
+
+
+<!-- 立即购买 二次确认2020-03-06 -->
+<van-popup
+show="{{align}}" 
+round
+position="bottom" 
+class="layer-align {{showShare?'active':''}}" 
+bind:close="closeBuySure" 
+>   
+    <view class="share-box" style="padding:36rpx;position:relative;">
+        <image bindtap="closeBuySure" style="width:20rpx;height:20rpx;position:absolute;right:0;top:0;padding:20rpx;box-sizing:content-box;" src="/images/close2.png" />
+        <view>
+            <view class="fs14 num4">{{ details.title }}</view>
+            <view class="ab" style="padding-top:24rpx;">
+                <view class="ai">
+                    <view class="fs12 red now-price">￥<i class="fs18 bold n">{{ details.commoditySpecses[idx].sellingPrice || 0 }}</i></view>
+                    <span class="left fs12 old-price hui" style="position:relative;left:12rpx;">原价<i class="fs10">￥</i><span class="n">{{ details.commoditySpecses[idx].originalPrice || 0 }}</span></span>
+                    <ul class="tips clear" style="margin-left:24rpx;">
+                        <li wx:if="{{ state != '' && details.commoditySpecses[idx].rebate && state != 5 && state != 6 && details.commoditySpecses[idx].currentStock > 0}}" class="left fan red fs10 hongbao">返<i class="fs10">￥</i>
+                          <span class="n">{{ details.commoditySpecses[idx].rebate }}</span>
+                        </li>
+                        <li wx:if="{{ state != 5 && state != 6 && details.commoditySpecses[idx].redPacket }}" class="left fan fs10 red">立减<i class="fs10">￥</i>
+                          <span class="n">{{ details.commoditySpecses[idx].redPacket }}</span>
+                        </li>
+                    </ul>
+                </view>
+                <view class="fs12 hui">剩余<i>{{ (details.commoditySpecses[idx].currentStock > 0 && state != 5 && state != 6) ? details.commoditySpecses[idx].currentStock : 0 }}</i></view>
+            </view>
+        </view>
+        
+        <view style="min-height:25vh;max-height:60vh;overflow-y:scroll;">
+            <view style="padding-top:40rpx;">
+                <view class="fs14">规格</view>
+                <ul class="tips clear sel-list block" style="margin-left:0;margin-top:20rpx;">
+                    <li bindtap="changeSpecs" data-idx="{{index}}" wx:for="{{details.commoditySpecses}}" wx:key="index" class="left fan fs12 {{index==idx?'active':''}}">
+                      {{ item.specName || '加载中...' }}
+                    </li>
+                </ul>
+            </view>
+            <view class="ab" style="padding-top:40rpx;">
+                <view class="fs14">数量</view>
+                <view class="right step jbq">
+                  <text class="fs14 {{ isOver?'over':'' }}" data-num="{{ buyNum }}" bindtap="reduceNum">-</text>
+                  <text class="fs14 num">{{ buyNum }}</text>
+                  <text class="fs14 {{ isOver2?'over':'' }}" data-num="{{ buyNum }}" bindtap="addNum">+</text>
+                </view>
+            </view>
+        </view>
+        <button 
+            wx:if="{{state==5 || state==5.5 || state==6 || state =='' || !details.commoditySpecses[idx].currentStock || details.commoditySpecses[idx].currentStock <= 0 }}"
+            class="btn fs16" 
+            style="width:100%;margin-bottom:{{ isIphoneFullScreen ? '38rpx':'24rpx' }};margin-top:40rpx;background: rgba(255, 73, 0, 0.7);">
+            {{ isSK ? '加载中...' : (state ==''?'加载中...':state==6?'已下架':state==5.5?'待抢购':'已售罄') }}
+        </button>
+        <button wx:else class="btn fs16" bindtap="goBuySure" data-id="{{ newId }}" data-pic="{{ details.picUrls[0] }}" data-details="{{ details.commoditySpecses[idx] }}" data-title="{{ details.title }}" style="width:100%;margin-bottom:{{ isIphoneFullScreen ? '38rpx':'24rpx' }};margin-top:40rpx;">确定</button>
+    </view>
+</van-popup>
+
+
+
+<!-- 客服 -->
+<van-popup class="kf-box" show="{{ showKefu }}" bind:close="onClose">
+  <view class="fs14 kf-text hui">选择客服方式</view>
+  <view class="kefu ai">
+    <button class="aj" open-type="contact">
+      <image src="/images/shareBtn.png"></image>
+    </button>
+    <view class="fs10 hui">或</view>
+    <view class="aj" data-tel='{{kf}}' bindtap="fnphone">
+      <image src="/images/dhkf.png"></image>
+    </view>
+  </view>
+  <view class="fs10 hui" style="text-align:center;padding-bottom:24rpx;position:relative;top:-12rpx;">客服服务时间：09:00-21:00 周一至周日</view>
+  <image bindtap="onClose" style="width:16rpx;height:16rpx;box-sizing:content-box;position:absolute;padding:24rpx;top:0;right:0;" src="/images/close2.png"></image>
+</van-popup>

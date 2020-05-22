@@ -1,0 +1,53 @@
+<van-toast id="custom-selector2" />
+<view class="nav" style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <view class="jiaonang b aj" style="left:0;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;background:transparent;box-shadow:0 0 1rpx transparent;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;margin-left:-12rpx;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px;opacity:0;"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;opacity:0;"></view>
+    </view>
+  </view>
+</view>
+<view style="height:{{ nav.navHeight }}px;background:#FF4900;"></view>
+
+<image style="width:750rpx;height:350rpx;position:absolute;top:0;left:0;object-fit:cover;" src="/images/bg-profit.png"></image>
+
+<view class="m-top" style="padding-top:2vw">
+  <view class="ai clear clear1">
+      <view class="left">
+          <h1 class="fs22 bold n"><i class="fs12">￥</i>{{ cashWithdrawal }}</h1>
+          <view class="fs10">可提现金额(元)</view>
+      </view>
+      <navigator url="/pages/User/pages/txList/index" hover-class="none" class="right tx-history">提现记录</navigator>
+  </view>
+</view>
+
+<view class="team" style="position:absolute;left:0;top:350rpx;">
+    
+    <view class="line"></view>
+
+    <view class="">
+        <view class="rds">
+            <h1 class="fs16">提现金额</h1>
+            <view class="tx-money ai xix xixb">
+                <span class="fs16 bold" style="position:relative;top:10rpx;display:inline-block;width:40rpx;">￥</span>
+                <view style="width:662rpx;">
+                    <input value="{{money}}" class="fs48 input bold num1 n {{!showPlaceholder?'on':''}}" bindfocus="fnFocus" bindinput="fnMoney" bindblur="fnBlur" type="digit" />
+                </view>
+            </view>
+            <view class="tx-exp ab">
+                <span class="fs12">满足50元即可提现</span>
+                <view class="fs12" style="color:#108EE9;" bindtap="fntxAll">全部提现</view>
+            </view>
+        </view>
+        <view class="tx" style="margin-top:40rpx;">
+            <view class="fs12 hui">
+                温馨提示：目前为人工提现，每次提现时，请向享趣严选的财务客服人员(微信号： <span bindtap="copyCode" class="wxcode" :data-clipboard-text="weChat" style="color:#108EE9;">{{ weChat }}</span>) 发送：“小趣你好，我要提现！”的指令，即可很快到账
+            </view>
+            <button class="btn" wx:if="{{showBtn}}" bindtap="fntx">申请提现</button>
+            <button class="btn" wx:else style="opacity:.5">申请提现</button>
+        </view>
+
+    </view>
+
+</view>

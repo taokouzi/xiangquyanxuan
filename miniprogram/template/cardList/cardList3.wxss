@@ -1,0 +1,81 @@
+.cardList3 .price-box{
+    padding:2rpx 0 10rpx 0;
+    position: relative;
+    /* margin-top: 10rpx; */
+}
+.cardList3 image{
+  object-fit: cover;
+}
+.cardList3 .tips{
+    padding: 16rpx 0;
+    margin-right: 10rpx;
+}
+.cardList3 .tips li{
+    padding:2rpx 10rpx;
+    background: rgba(255,73,0,.2);
+    border-radius:2rpx;
+}
+.cardList3 .volume{
+    position: absolute;
+    right: 0;
+}
+.cardList3 .red{
+    color: #FF4900;
+}
+.cardList3 .now-price{
+    padding-right:20rpx;
+}
+.cardList3.c-box{
+    background: #ffffff;
+    overflow: hidden;
+    margin-bottom:20rpx;
+}
+.cardList3 .text-box{
+    padding:0 20rpx;
+    height:220rpx;
+}
+.cardList3 .img-box{
+    position: relative;
+}
+.cardList3 .sp-img{
+    /* height: 45.9vw; */
+    width:220rpx;
+    height:220rpx;
+    border-radius: 8rpx;
+    object-fit: cover;
+}
+.cardList3 .icon-tip{
+    width: auto;
+    height:44rpx;
+}
+.cardList3 .status{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    color: #ffffff;
+    text-align: center;
+}
+.cardList3 .status span{
+    position: absolute;
+    z-index: 2;
+    color: #ffffff;
+    top: 0;
+    margin-left: -6rpx;
+    display: block;
+    line-height: 44rpx;
+    text-align: center;
+}
+.cardList3 .old-price{
+    text-decoration: line-through;
+}
+.list-index-3{
+  margin-top: 0 !important;
+}
+.hongbao{
+  background: rgba(255,195,0,.5) !important;
+  color: #333 !important;
+}
+.fs14.num2{
+  line-height: 40rpx;
+}

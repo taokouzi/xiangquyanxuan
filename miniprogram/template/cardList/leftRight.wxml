@@ -1,0 +1,25 @@
+<!-- 左右布局商品 -->
+<template name="order">  
+
+  <wxs module="priceNum">
+    var numberToFix= function (value) {
+      return value.toFixed(2)
+    }
+    module.exports.numberToFix=numberToFix;
+  </wxs>
+
+
+  <view class="sp-box ai">
+      <image class="sp-img imgLoad" mode="aspectFill" src="{{ firstPic ? firstPic : '/images/imgLoad.png' }}" lazy-load="true"  alt=""></image>
+      <view class="sp-container">
+          <view class="sp-title fs13 num2">{{ title }}</view>
+          <view class="clear sp-price">
+              <span class="left tip hui num1 fs12" wx:if="{{ specsName }}">{{ specsName }}</span>
+              <span wx:if="{{ buyPrice }}" style="max-height:40rpx;" class="right ai fs10 {{ (buyNum || buyNum == -1) ?'hui':'' }}">￥<i class="n fs14">{{ priceNum.numberToFix(buyPrice) }}</i> <span wx:if="{{ buyNum && buyNum > 1 }}" class="fs12 hui n">x{{ buyNum }}</span> </span>
+              <span wx:else class="right fs10">
+                  <span wx:if="{{ buyNum }}" class="fs12 hui n">x{{ buyNum }}</span>
+              </span>
+          </view>
+      </view>
+  </view>
+</template>

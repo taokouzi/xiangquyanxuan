@@ -1,0 +1,19 @@
+<!-- 底部弹出 -->
+<template name="layerBottom">
+  <view bindtap="fnshowLayer2" class="opacity {{ showLayer?'active':'' }}"></view>
+  <view class="layer {{ showLayer?'active':'' }}">
+    <view>
+      <image class="image" mode="widthFix" src="./images/copyBtn.png"></image>
+      <view class="fs12 hui">复制链接</view>
+    </view>
+    <view>
+      <image class="image" mode="widthFix" src="./images/ewmBtn.png"></image>
+      <view class="fs12 hui">生产海报</view>
+    </view>
+    <button class="view" open-type="share" hover-class="other-button-hover">
+      <image class="image" mode="widthFix" src="./images/shareBtn.png"></image>
+      <view class="fs12 hui">分享给好友</view>
+    </button>
+    <button class="fs16">取消</button>
+  </view>
+</template>

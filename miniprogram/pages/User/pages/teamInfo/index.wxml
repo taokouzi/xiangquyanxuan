@@ -1,0 +1,115 @@
+<van-toast id="custom-selector" />
+<view class="me ">
+  <view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+    <view class='nav-title'>
+      <text class="fs15">{{ type=='tz'?'达人':'团长' }}信息</text>
+      <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+        <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="line" style='padding-top:{{nav.navHeight}}px'></view>
+  <view class="line"></view>
+
+    <view class="rds">
+        <view class="li xix xixb ai">
+            <text class="fs14">头像</text>
+            <view class="ai">
+                <image class="header" mode="widthFix" src="{{ user.headImg || '/images/head.png' }}" alt=""></image>
+            </view>
+        </view>
+
+         <!-- bindtap="fnShowNickAlert" -->
+        <view class="li xix xixb ai">
+            <text class="fs14">名称</text>
+            <view class="ai">
+                <a href="javascript:;" class="fs12 hui">{{ user.userName || '匿名用户' }}</a>
+                <!-- <image mode="widthFix" style="width:24rpx;margin-left:16rpx;" src="/images/edit.png" alt=""></image> -->
+            </view>
+        </view>
+
+        <view class="li xix xixb ai">
+            <text class="fs14">微信昵称</text>
+            <view class="ai">
+                <a href="javascript:;" class="fs12 hui">{{ user.nickName || '匿名用户' }}</a>
+            </view>
+        </view>
+
+        <view class="li xix xixb ai">
+            <text class="fs14">手机号</text>
+            <view class="ai">
+                <a href="javascript:;" class="fs12 hui">{{ user.phone || '' }}</a>
+            </view>
+        </view>
+        
+        <view class="li xix xixb ai">
+            <text class="fs14">等级</text>
+            <view class="ai" bindtap="fnShowLevelAlert">
+                <a href="javascript:;" wx:if="{{type=='tz'}}" class="fs12 hui">{{ user.level || '-' }}</a>
+                <a href="javascript:;" wx:else class="fs12 hui">{{ user.levelTop || '-' }}</a>
+                <image mode="widthFix" style="width:24rpx;margin-left:16rpx;" src="/images/edit.png" alt=""></image>
+            </view>
+        </view>
+
+        <view class="li ai">
+            <text class="fs14">备注</text>
+            <view class="ai" bindtap="fnShowRemarkAlert">
+                <a href="javascript:;" wx:if="{{type=='tz'}}" class="fs12 hui">{{ user.remark || '-' }}</a>
+                <a href="javascript:;" wx:else class="fs12 hui">{{ user.remarkTop || '-' }}</a>
+                <image mode="widthFix" style="width:24rpx;margin-left:16rpx;" src="/images/edit.png" alt=""></image>
+            </view>
+        </view>
+
+        <navigator url="/pages/User/pages/{{ type=='tz'?'userEcharts':'userEcharts2' }}/index?type={{type}}&id={{id}}" class="li ai">
+            <text class="fs14">查看数据</text>
+            <view class="ai">
+                <image mode="widthFix" style="width:16rpx;margin-left:16rpx;" src="/images/you.png" alt=""></image>
+            </view>
+        </navigator>
+
+    </view>
+
+    <view class="line"></view>
+
+</view>
+
+
+<!-- 修改名称 -->
+<!-- <form bindsubmit="fnEdit1" wx:if="{{ showNickAlert }}">
+  <view class='opacity'></view>
+  <view class='layer' style="padding-top:30rpx;">
+      <text class="fs15">修改名称</text>
+      <input class="edit-nick fs14" auto-focus name="userName" value="{{ user.userName }}" placeholder="自定义名称"/>
+      <view class="edit-btns">
+        <button class="close fs14"bindtap="fnclose">关闭</button>
+        <button class="ok fs14" form-type='submit'>确认</button>
+      </view>
+  </view>
+</form> -->
+<!-- 修改等级 -->
+<form bindsubmit="fnEdit" data-type="lv" wx:if="{{ showLevelAlert }}">
+  <view class='opacity'></view>
+  <view class='layer' style="padding-top:30rpx;">
+      <text class="fs15">修改等级</text>
+      <input class="edit-nick fs14" auto-focus name="level" type="number" value="{{ type=='tz'? user.level : user.levelTop }}" placeholder="自定义等级"/>
+      <view class="edit-btns">
+        <button class="close fs14"bindtap="fnclose">关闭</button>
+        <button class="ok fs14" form-type='submit'>确认</button>
+      </view>
+  </view>
+</form>
+<!-- 修改备注 -->
+<form bindsubmit="fnEdit" data-type="rk" wx:if="{{ showRemarkAlert }}">
+  <view class='opacity'></view>
+  <view class='layer' style="padding-top:30rpx;">
+      <text class="fs15">修改备注</text>
+      <input class="edit-nick fs14" auto-focus name="remark" value="{{ type=='tz'? user.remark : user.remarkTop }}" placeholder="自定义备注"/>
+      <view class="edit-btns">
+        <button class="close fs14"bindtap="fnclose">关闭</button>
+        <button class="ok fs14" form-type='submit'>确认</button>
+      </view>
+  </view>
+</form>

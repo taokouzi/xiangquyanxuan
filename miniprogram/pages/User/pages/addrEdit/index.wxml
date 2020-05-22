@@ -1,0 +1,54 @@
+<!-- <import src ="/template/addr/index.wxml"/> -->
+<van-toast id="custom-selector" />
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+<view wx:else class="addr-edit">
+    <view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+      <view class='nav-title'>
+        <text class="fs15">地址编辑/添加</text>
+        <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+          <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="line" style='padding-top:{{nav.navHeight}}px'></view>
+    <view class="line"></view>
+    <form class="edit-addr" bindsubmit="saveAddr">
+        <view class="">
+          <!-- <template data="{{ addr }}" is="addr"/> -->
+          <view class="addr rds">
+              <label class="li ai xix xixb" for="">
+                  <text class="left fs14">收货人</text>
+                  <input name="receiver" class="left" value="{{ addr.receiver }}" type="text" placeholder="请填写收货人姓名" />
+              </label>
+              <label class="li ai xix xixb">
+                  <text class="left fs14">手机号码</text>
+                  <input name="phone" class="left" value="{{ addr.phone }}" type="number" placeholder="请填写收货人手机号" />
+              </label>
+
+              <picker mode="region" name="region" bindchange="bindRegionChange" value="{{region || [] }}" custom-item="{{customItem||'' }}">
+                <label class="li ai xix xixb" style="position:relative;">
+                    <text class="left fs14">所在地区</text>
+                    <text wx:if="{{ region[0] }}">{{ region[0]+' '+region[1]+' '+region[2] }}</text>
+                    <text wx:else class="hui">请选择所在地区</text>
+                </label>
+              </picker>
+              <label class="li xix xixb">
+                  <text class="left fs14">详细地址</text>
+                  <textarea class="left input" style="background:transparent;border:none;height:90rpx;resize:none;position:relative;top:-20rpx;padding-left:0;margin-top:0;" type="text" placeholder="街道、小区、楼牌号、乡镇、村" name="address" value="{{ addr.address }}"></textarea>
+              </label>
+              <label class="li ai fs14" bindtap="toglleSelectMr">
+                <image class="xuan" src="/images/{{ checked ? 'xuanz':'xuan' }}.png" alt=""></image>
+                设置为默认
+              </label>
+          </view>
+      </view>
+      <view class="footer ai" style="padding-bottom:{{isIphoneFullScreen?'50rpx':'0'}};height:{{isIphoneFullScreen?'160':'120'}}rpx;">
+        <button class="btn" form-type='submit'>保存</button>
+      </view>
+    </form>
+</view>

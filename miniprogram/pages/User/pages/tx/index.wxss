@@ -1,0 +1,110 @@
+._frm{
+    padding-top: 100rpx;
+}
+._frm ._input{
+    width: 100%;
+    border-bottom: 1rpx solid #E5E5E5;
+    position: relative;
+    background: transparent !important;
+    border-radius: 0;
+}
+._frm input{
+    height: 72rpx;
+    line-height: 72rpx;
+    padding:10rpx 0;
+}
+._frm ._input input{
+    width: 100%;
+    padding-right:200rpx;
+    background: transparent !important;
+}
+._frm p._input{
+    margin-top:60rpx;
+}
+._frm .code{
+    position: absolute;
+    right: 0;
+}
+
+
+.fs48{
+  font-size: 80rpx;
+  line-height: 135.2rpx !important;
+  height: 135.2rpx !important;
+}
+
+.finish{
+    padding:30rpx 24rpx;
+    text-align: center;
+}
+.alert-btn{
+    margin-top:60rpx !important;
+}
+.finish image{
+    width:120rpx;
+    height:120rpx;
+    margin:20rpx auto;
+}
+.finish p{
+    padding-top: 10rpx;
+    padding-bottom:40rpx;
+}
+.btn{
+    width: 100%;
+    margin-top:100rpx;
+}
+.tx-money{
+    overflow: hidden;
+    padding:10rpx 0;
+}
+.tx-money>div{
+    position: relative;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+}
+.tx-money>div span{
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
+.tx-exp{
+    position: relative;
+    margin-top: 4.67vw;
+}
+.tx-exp p{
+    position: absolute;
+    right: 0;
+}
+
+.tx{
+    padding:0 24rpx;
+}
+.rds{
+    padding: 24rpx;
+}
+.m-top{
+    /* height: 38.8vw; */
+    /* background: #FF4900; */
+    color: #ffffff;
+    position: relative;
+}
+.tx-history{
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+.m-top h1{
+    text-align: center;
+}
+.clear1{
+    position: relative;
+    padding: 24rpx;
+}
+.clear1 .left h1{
+    text-align: left;
+}
+.clear1 .right{
+    position: absolute;
+    right:24rpx;
+}

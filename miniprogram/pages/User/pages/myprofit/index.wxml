@@ -1,0 +1,113 @@
+<van-toast id="custom-selector" />
+<import src ="/template/cardList/leftRight.wxml"/>
+
+<scroll-view scroll-y='true' class="swiper-box" style="height:100vh;" bindscrolltolower='florderLists' bindscroll="pageScroll">
+
+<view class="nav {{ showNav?'bg-red':'' }}" style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">我的收益</text>
+    <view class="jiaonang aj" style="left:0;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;background:transparent;box-shadow:0 0 1rpx transparent;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;margin-left:-12rpx;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px;opacity:0;"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;opacity:0;"></view>
+    </view>
+  </view>
+</view>
+<view style="height:{{ nav.navHeight }}px;background:#FF4900;"></view>
+
+
+<wxs module="priceNum">
+  var numberToFix= function (value) {
+    return value.toFixed(2)
+  }
+  module.exports.numberToFix=numberToFix;
+</wxs>
+
+<image style="width:750rpx;height:470rpx;position:absolute;top:0;left:0;object-fit:cover;" src="/images/bg-profit.png"></image>
+<view class="team">
+  <view class="m-top">
+      <view class="ai clear clear1" style="padding-top:5vw;">
+          <view class="left">
+              <h1 class="fs22 bold n"><i class="fs12">￥</i>{{ priceNum.numberToFix((profit.directIncome || 0)+(profit.headIncome || 0)) }}</h1>
+              <view class="fs10">我的平台总收益</view>
+          </view>
+          <navigator url="/pages/User/pages/txList/index" hover-class="none" class="right tx-history">提现记录</navigator>
+      </view>
+      
+      <view class="clear clear2 ai {{userType=='2'?'':userType=='4'?'x5':'x3'}}">
+          <view class="left">
+              <h2 class="fs16 bold num1 n"><i class="fs12">￥</i>{{ profit.canWithdraw || 0 }}</h2>
+              <view class="fs10 num1">可提现</view>
+          </view>
+          <view class="left">
+              <h2 class="fs16 bold num1 n"><i class="fs12">￥</i>{{ profit.hasWithdraw || 0 }}</h2>
+              <view class="fs10 num1">已提现</view>
+          </view>
+          <view class="left">
+              <h2 class="fs16 bold num1 n"><i class="fs12">￥</i>{{ profit.directIncome || 0 }}</h2>
+              <view class="fs10">直接受益</view>
+          </view>
+          <view class="right" wx:if="{{userType=='2'||userType=='4'}}">
+              <h2 class="fs16 bold num1 n"><i class="fs12">￥</i>{{ profit.headIncome || 0 }}</h2>
+              <view class="fs10 num1">组团收益</view>
+          </view>
+          <view class="right" wx:if="{{userType=='4'}}">
+              <view class="fs16 bold num1 n"><i class="fs12">￥</i>{{ profit.topIncome || 0 }}</view>
+              <view class="fs10 num1">推广收益</view>
+          </view>
+      </view>
+  </view>
+
+  <!-- <view class="line"></view> -->
+
+  <view class="li _tx ai rds">
+      <span class="fs13 tx num1" style="color:#ECC249;">
+          可提现金额满足50元即可提现
+      </span>
+
+      <button wx:if="{{phoneState==0}}" open-type='getPhoneNumber' bindgetphonenumber='fnGetPhoneNumber' class="not-btn btn fs12" style="background:#ECC249;">去提现</button>
+      <navigator wx:else url="/pages/User/pages/tx/index?id={{sp.commodityId}}" hover-class="none" class="btn fs12" style="background:#ECC249;">去提现</navigator>
+  </view>
+  
+  <view class="line"></view>
+
+  <transition name="sk">
+      <view class="in-skeleton" wx:if="isSK"></view>
+  </transition>
+  <transition name="co">
+      <view wx:if="!isSK">
+          <view wx:if="{{florder.length>0}}" style="padding-bottom:200rpx;">
+                  <block wx:for="{{florder}}" wx:key="index" wx:for-item="sp">
+                    <view class="order-box animated fadeInUp">
+                      <view class="order rds">
+                          <view class="clear fs12 ai">
+                              <span class="fs12 hui left">订单编号：<i>{{ sp.id }}</i></span>
+                              <ul class="tips ai">
+                                  <li wx:for="{{sp.rebateAmountVOS}}" wx:key="idx" wx:for-item="item" class="hongbao fs12 {{sp.refund?'return':''}}">返<i class="fs10">￥</i><i class="n fs12">{{ item.rebateAmount }}</i></li>
+                              </ul>
+                          </view>
+                          <navigator url="/pages/Main/pages/details/index?id={{sp.commodityId}}" hover-class="none">
+                            <template data="{{ title:sp.title, firstPic:sp.firstPic, specsName:sp.specsName }}" is="order"/>
+                          </navigator>
+                          <view class="see-details-box ab">
+                              <view class="left ai num1">
+                                  <image src="{{ sp.buyerConsumerHeadImg || '/images/head.png' }}" alt=""></image>
+                                  <span class="nick fs12 num1">{{sp.buyerConsumerUserName || '匿名用户' }}</span>
+                              </view>
+                              <view class="fs12 hui">{{sp.createTime}}</view>
+                          </view>
+                      </view>
+                    </view>
+                  </block>
+                  <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+          </view>
+          <view wx:else>
+              <view class="fs14 hui" style="text-align:center;padding-top:120rpx;">
+                  <image mode="widthFix" style="width:300rpx;margin:30rpx auto;" src="/images/notorder.png" alt=""></image>
+                  还没有收益记录哦
+              </view>
+          </view>
+      </view>
+  </transition>
+</view>
+</scroll-view>

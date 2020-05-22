@@ -1,0 +1,114 @@
+/* miniprogram/pages/Main/pages/arrange/index.wxss */
+.order{
+    padding:30rpx 24rpx;
+}
+.li{
+    position: relative;
+    padding:24rpx 0;
+}
+.mds{
+    max-height: 700rpx;
+    overflow: scroll;
+    box-sizing: border-box;
+}
+.mds .ax:last-child::before{
+    border-color: transparent;
+}
+.mds a{
+  box-sizing: border-box;
+}
+.btn{
+    width: 100%;
+    margin-top: 100rpx;
+}
+.ax{
+    width:100%;
+    position:relative;
+    padding: 20rpx 0 24rpx 0;
+}
+.ax:active,.ax:hover,.ax:visited,.ax:link,.ax{
+    background: transparent !important;
+}
+
+
+
+.btn-yy{
+background: #FF4900;
+color: #ffffff;
+  font-size: 26rpx;
+  height: 48rpx;
+  border-radius:48rpx;
+  line-height:48rpx;
+  padding: 0 24rpx;
+  position: absolute;
+  right: 24rpx;
+}
+.weekdays,.weekdays-time{
+  margin: 0;
+  padding:24rpx 0;
+  background: #eef1f6;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width:100%;
+  color: #374453;
+  background: #eef1f6;
+  box-sizing: border-box;
+}
+.weekdays li{
+  display:inline-block;
+  width:13.6%;
+  text-align:center;
+}
+.weekdays-time{
+  justify-content:space-between;
+  padding:24rpx;
+}
+.days {
+  padding: 0;
+  background: #FFFFFF;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 14.2%;
+  text-align: center;
+  font-size: 28rpx;
+}
+.days li span{
+  display: inline-block;
+  color: #000;
+  cursor: pointer;
+  vertical-align: middle;
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 100rpx;
+  border-radius: 50rpx;
+}
+.curDay.active{
+  border:1rpx solid rgba(255,73,0,.5);
+}
+.days li .other-month {
+  padding:10rpx;
+  color: darkgrey;
+}
+.days li span.on,.curDay.active.on {
+  background: #FF4900 !important;
+  color: #FFFFFF !important;
+}
+.arrDays{
+  height: 824rpx;
+  overflow-y: auto;
+  padding-bottom: 140rpx;
+}
+.years{
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: left;
+  padding: 0 20rpx;
+  color: #FF4900;
+}

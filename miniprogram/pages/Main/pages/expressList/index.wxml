@@ -1,0 +1,50 @@
+<!--miniprogram/pages/Main/pages/expressList/index.wxml-->
+<van-toast id="custom-selector" />
+<import src ="/template/step/topBottom.wxml"/>
+
+<view class="nav" style="height:{{nav.navHeight}}px;background:{{showNav?'#ffffff':transparent}};">
+  <view class='nav-title'>
+    <text wx:if="{{ showNav }}" class="fs15">物流信息</text>
+    <view class="jiaonang aj" style="left:0;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;background:transparent;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;margin-left:-12rpx;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px;opacity:0;"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;opacity:0;"></view>
+    </view>
+  </view>
+</view>
+
+
+<view style="height:{{ nav.navHeight }}px;background:#FFC800;"></view>
+<view class="m-top ai">
+    <view>
+        <view class="fs16 num1" style="padding-bottom:8rpx;">
+            {{ orstatus[or.orderStatus].title }}
+        </view>
+        <view class="fs12 num1">{{ orstatus[or.orderStatus].text }}</view>
+    </view>
+    <image mode="widthFix" wx:if="{{ orstatus[or.orderStatus].title }}" class="xiaox" src="{{ orstatus[or.orderStatus].src }}" alt=""></image>
+</view>
+
+<!-- 快递 -->
+<view class="xix xixb rds" wx:if="{{ or.courierNum }}">
+    <view class="li ai num1" style="padding-bottom:.16rpx;">
+        <image mode="widthFix" class="icon" src="/images/kd.png" alt=""></image>
+        <span class="fs14" style="margin-right:10rpx;">{{ or.ccn }}</span>
+        <!-- <textarea readonly id="ordernum" style="width:0;height:0;opacity:0;">{{ or.courierNum }}</textarea> -->
+        <span class="fs13 ai" bindtap="copyWLCode" data-code="{{ or.courierNum }}" style="color:#1989fa;"> <i class="fs13 num1" style="display:inline-block;max-width:38vw;">{{ or.courierNum }}</i></span>
+    </view>
+</view>
+<view class="line"></view>
+
+<!-- 详细记录 -->
+<view class="order rds">
+    <view wx:if="express.length>0">
+        <template data="{{ or:express, th3:0 }}" is="stepTopBottom" />
+    </view>
+    <view wx:else class="alignC fs14 hui">
+        <view class="fs14 hui" style="text-align:center;padding:120rpx 0;">
+            <image mode="widthFix" style="width:300rpx;margin:30rpx auto;" src="/images/notorder.png" alt=""></image>
+            没有查询到物流信息
+        </view>
+    </view>
+</view>

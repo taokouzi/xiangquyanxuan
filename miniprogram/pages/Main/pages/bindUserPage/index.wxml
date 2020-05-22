@@ -1,0 +1,8 @@
+<van-toast id="custom-selector" />
+
+<view class="finish" wx:if="{{!isSK}}">
+    <image src="/images/reg{{ status.reg }}.png" alt="" />
+    <view class="fs18">{{ status.reg == 'err' ? '很抱歉！' : status.reg == 'ok' ? '恭喜你！' : '系统提示' }}</view>
+    <view class="fs14" style="padding-top:40rpx;">{{ status.text }}</view>
+    <button class="btn alert-btn btn-{{ status.reg }}" bindtap="navBack">回首页</button>
+</view>

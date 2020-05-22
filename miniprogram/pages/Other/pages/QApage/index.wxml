@@ -1,0 +1,46 @@
+<van-toast id="custom-selector" />
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">达人秘籍</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+
+<view class="box" style='padding:24rpx;padding-top:{{nav.navHeight*1.2}}px;'>
+
+  <!-- <view class="qa">
+    <view class="title">1、达人福利与特权有哪些？</view>
+    <view>a、达人自行购买商城所有产品，均可获取返利佣金收益。</view>
+    <view>b、达人分享给任意用户购买商城产品，均可立即获取对应的返利佣金收益。</view>
+    <view>c、达人分享给普通用户商品，普通用户直接购买，可获得现金红包直接抵扣付款金额。</view>
+  </view>
+
+  <view class="qa">
+    <view class="title">2、如何联系客服？</view>
+    <view>a、可通过商品详情中咨询电话进行售前咨询。</view>
+    <view>b、可通过个人中心的联系客服，与客服进行在线问答。</view>
+    <view>c、可通过订单详情中的售后直接进行快速处理；</view>
+  </view>
+
+  <view class="qa">
+    <view class="title">3、如何进行达人提现？</view>
+    <view>a、进入个人中心，在我的收益中可看到可提现金额和提现按钮；</view>
+    <view>b、当可提现金额大于50元时，可进行提现申请。</view>
+    <view>c、提现申请后，需要添加财务人员微信。</view>
+    <view>d、提现审核通过后，财务人员会直接将提现金额打入微信零钱中。就此提现结束。</view>
+  </view>
+
+  <view class="qa">
+    <view class="title">4、达人成长空间有哪些？</view>
+    <view>a、普通用户通过达人团长二维码分享，可提升为达人。</view>
+    <view>b、普通用户省钱总金额达人10000元时，可通过客服联系工作人员，提升成为达人。</view>
+    <view>c、达人在客户达到50人时，可通过客服联系工作人员，提升成为达人团长。</view>
+  </view> -->
+  
+  <rich-text nodes="{{container}}"></rich-text>
+
+</view>

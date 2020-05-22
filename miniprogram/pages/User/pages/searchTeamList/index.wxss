@@ -1,0 +1,46 @@
+/* miniprogram/pages/User/pages/teamList/index.wxss */
+.card{
+  width: 400rpx;
+  height: 100rpx;
+  margin:0 auto;
+  text-align: center;
+  padding:40rpx 0 20rpx 0;
+  box-sizing: content-box;
+}
+
+.t-list-box{
+  padding: 24rpx;
+}
+
+.t-list{
+  padding: 24rpx;
+  box-shadow: 10rpx 10rpx 20rpx #e9e9e9;
+  margin-bottom: 24rpx;
+}
+
+.t-list image{
+  width:100rpx;
+  height:100rpx;
+  margin-right: 24rpx;
+}
+.search-box{
+  width: 750rpx;
+  background: #F5F5F5;
+  position: relative;
+  left: 0;
+  z-index: 2;
+  padding: 20rpx 0;
+}
+.search{
+  width: 702rpx;
+  padding:0 24rpx;
+  margin:0 auto;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.search input{
+  flex: 1;
+  padding:0 16rpx;
+  height: 80rpx;
+}

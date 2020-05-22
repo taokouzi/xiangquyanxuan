@@ -1,0 +1,71 @@
+<van-toast id="custom-selector" />
+<view> 
+<view class='nav bg-red' style='height:{{nav.navHeight}}px;background:#FFC800 !important;'>
+    <view class='nav-title'>
+      <text class="fs15"></text>
+      <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+        <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+      </view>
+    </view>
+  </view>
+
+    <view class="m-top ai" style='margin-top:{{nav.navHeight}}px'>
+        <view>
+            <h1 class="fs16 num1" style="padding-bottom:4rpx;">
+                <view>请填写正确回寄物流信息，</view>
+                <view>以免影响退款进度。</view>
+            </h1>
+        </view>
+    </view>
+
+    <view class="line"></view>
+
+    <form bindsubmit="fnSubmit">
+    <view class="rds postSale postSale2">
+        <view class="li ai xix xixb" bindtap="onShowPicker">
+            <span class="fs14">物流公司</span>
+            <label>
+                <span class="fs14 hui">{{ wlName }}</span>
+            </label>
+            <image mode="widthFix" class="img" style="width:16rpx;margin-left:10rpx;" src="/images/you.png" alt=""></image>
+        </view>
+        <view class="li ai xix xixb" wx:if="{{wlRadio == lists.length-1}}">
+            <span class="fs14">物流名称</span>
+            <label>
+                <input style="width:100%;" type="number" class="fs14 hui n" value="" name="courierName" placeholder="请填写物流公司名称" />
+            </label>
+        </view>
+
+        <view class="li ai xix xixb">
+            <span class="fs14">快递单号</span>
+            <label>
+                <input style="width:100%;" name="courierNum" type="number" class="fs14 hui n" value="" placeholder="请填写物流单号" />
+            </label>
+        </view>
+
+        <view class="li ai xix xixb shuo-ming">
+            <span class="fs14 span">备注</span>
+            <textarea maxlength="200" class="hui fs14" placeholder="选填" bindinput="inputUserMessage" name="userMessage"></textarea>
+            <span class="zishu hui fs12">{{ userMessage.length || 0 }}<i style="padding:0 2rpx;">/</i>200</span>
+        </view>
+
+    </view>
+    
+
+    <view class="footer ai">
+        <button class="btn fs14" form-type='submit'>提交</button>
+    </view>
+    </form>
+
+    <van-popup show="{{showPicker}}" bind:close="onCloseShowPicker" position="bottom">
+      <van-picker 
+      show-toolbar
+      title="请选择" 
+      bind:cancel="onCloseShowPicker"
+      bind:confirm="onConfirm" 
+      columns="{{ lists }}" />
+    </van-popup>
+    
+</view>

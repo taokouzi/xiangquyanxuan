@@ -1,0 +1,39 @@
+<van-toast id="custom-selector" />
+<scroll-view scroll-y='true' class="swiper-box" style="height:100vh;" bindscrolltolower='txList'>
+<view class="nav" style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">提现记录</text>
+    <view class="jiaonang aj" style="left:0;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;background:transparent;box-shadow:0 0 1rpx transparent;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;margin-left:-12rpx;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px;opacity:0;"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;opacity:0;"></view>
+    </view>
+  </view>
+</view>
+<view style="height:{{ nav.navHeight }}px;background:#ffffff;"></view>
+
+<view class="news">
+    <view class="line"></view>
+    <view class="rds" wx:if="{{lists.length > 0}}">
+        <block wx:for="{{lists}}" wx:key="index">
+          <view class="li xix xixb clear ai animated fadeInUp">
+              <view class="left">
+                  <view class="fs13 hui" style="padding:6rpx 0">提现金额：<span class="fs12"><i class="fs12">￥</i><i class="fs14 n">{{ item.withdrawalAmount||0 }}</i></span></view>
+                  <view class="fs13 hui" style="padding:6rpx 0">{{ item.status == 0 ? '申请' : '提现' }}时间：<i>
+                      {{ item.status==0 ? item.applyTime : item.endTime }}
+                  </i></view>
+              </view>
+              <view class="fs14 right {{item.status == 0?'red':'hui'}}">{{ item.status == 0 ? '申请中' : '已提现' }}</view>
+          </view>
+        </block>
+        <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+    </view>
+    <view wx:else>
+        <view class="fs14 hui" style="text-align:center;padding-top:300rpx;">
+            <image mode="widthFix" style="width:300rpx;margin:30rpx auto;" src="/images/notorder.png" alt=""></image>
+            还没有提现记录哦
+        </view>
+    </view>
+    <view class="line"></view>
+</view>
+</scroll-view>

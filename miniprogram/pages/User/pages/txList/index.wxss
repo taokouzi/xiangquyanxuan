@@ -1,0 +1,8 @@
+.li{
+    padding:24rpx;
+    position: relative;
+}
+.right{
+    position: absolute;
+    right:24rpx;
+}

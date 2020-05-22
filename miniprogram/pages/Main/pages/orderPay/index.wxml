@@ -1,0 +1,93 @@
+<van-toast id="custom-selector" />
+<import src ="/template/cardList/leftRight.wxml"/>
+<import src ="/template/addr/index.wxml"/>
+
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">商品支付</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+
+<form wx:else class="addr" bindsubmit="pay">
+    <view style="margin-top:{{nav.navHeight}}px" class="line"></view>
+    <view class="rds">
+        <!-- 有默认地址 -->
+        <navigator url="/pages/User/pages/addrList/index?com=orderPay" wx:if="{{isHaveAddr}}" class="li ai xix xixb" style="position:relative;padding-bottom: 20rpx;">
+            <span class="fs15">收货地址</span>
+            <image wx:if="{{userType!=3}}" mode="widthFix" style="width:24rpx;position:absolute;right:24rpx;" src="/images/you.png" alt=""></image>
+        </navigator>
+        <!-- 没有默认地址 -->
+        <view wx:else class="li ai xix xixb" style="position:relative;padding-bottom:20rpx;">
+            <span class="fs15">收货地址</span>
+            <button bindtap="getWxAddr" class="btn _wx ai" style="height:60rpx;line-height:60rpx;width:auto;padding:0 24rpx;background:#09BB07;">
+                <image class="b" mode="widthFix" style="height:38rpx;width:38rpx;margin-right: 4rpx;border-color:transparent;" src="/images/wx.png" alt=""></image>
+                <span class="fs13">一键获取微信收货地址</span>
+            </button>
+        </view>
+
+        <view style="margin-bottom:24rpx;">
+            <template class="pay-start" data="{{ addr }}" is="addr"/>
+            <textarea name="remarks" placeholder="请填写备注信息" style=""></textarea>
+        </view>
+    </view>
+    <view class="line"></view>
+
+    <!-- 商品信息 -->
+    <view class="sp">
+        <view class="rds sp-2">
+            <h1 class="fs16">商品信息</h1>
+            <template data="{{ title: sp.title,firstPic: sp.firstPic,buyPrice:sp.details.sellingPrice,specsName:sp.details.specName }}" is="order"/>
+            <view class="li clear ai" style="position:relative;padding-left:0;padding-right:0;">
+                <span class="fs14 hui left">购买数量</span>
+                <view class="right step jbq">
+                  <text class="fs14 {{ isOver?'over':'' }}" data-num="{{ buyNum }}" bindtap="reduceNum">-</text>
+                  <text class="fs14 num">{{ buyNum }}</text>
+                  <text class="fs14 {{ isOver2?'over':'' }}" data-num="{{ buyNum }}" bindtap="addNum">+</text>
+                </view>
+            </view>
+            <view wx:if="{{sp.details.freight && sp.details.freight > 0}}" class="li clear ai" style="position:relative;padding-left:0;padding-right:0;padding-top:0;">
+                <span class="fs14 hui left">物流</span>
+                <span class="right step fs10">￥<i class="n fs14">{{ priceNum.numberToFix(sp.details.freight) }}</i></span>
+            </view>
+            <view class="li clear ai red" wx:if="{{ sp.details.redPacket }}" style="position:relative;padding-left:0;padding-right:0;padding-top:0;">
+                <span class="fs14 red left">立减</span>
+                <span class="right step fs10">-￥<i class="n fs14">{{ priceNum.numberToFix(sp.details.redPacket||0)*buyNum }}</i></span>
+            </view>
+        </view>
+
+        <view class="sp-2">
+            <label class="ai fs13"style="padding-left:0;padding-bottom:16rpx;padding-top:24rpx;">
+            <image mode="widthFix" class="xuan" bindtap="fnXuan" src="/images/{{ !checked?'xuan':'xuanz' }}.png" alt=""></image>
+            我已阅读，并同意<navigator url="/pages/Other/pages/rule/index" style="color:rgb(51, 136, 255)">《享趣严选平台用户协议》</navigator>
+            </label>
+            <span class="fs12 hui">注：此为定制套餐，无正当理由不可退改。如在未发货前退款，则需扣除20%手续费。如发货后退款，则需扣除20%手续费，并由买家承担所有物流相关费用。</span>
+        </view>
+    </view>
+    
+    <view class="no-peis fs12" style="bottom:{{isIphoneFullScreen?'160':'120'}}rpx;" wx:if="{{!js.supportDelivery}}">抱歉，该地区不在配送范围内，请重新选择</view>
+    <view class="footer ai" style="padding-bottom:{{isIphoneFullScreen?'50rpx':'0'}};height:{{isIphoneFullScreen?'160':'120'}}rpx;">
+        <wxs module="priceNum">
+          var numberToFix= function (value) {
+            return value.toFixed(2)
+          }
+          module.exports.numberToFix=numberToFix;
+        </wxs>
+        <view class="fs12 price hui num1">
+          总计：<span class="fs12 price-num">￥<i class="n fs16">{{ 
+          priceNum.numberToFix(buyNum*sp.details.sellingPrice + (sp.details.freight || 0)-((sp.details.redPacket||0)*buyNum))
+           }}</i></span>
+        </view>
+        <button class="btn" wx:if="{{js.supportDelivery}}" form-type='submit'>立即支付</button>
+        <button class="btn" wx:else style="background:#999999;">立即支付</button>
+    </view>
+
+</form>

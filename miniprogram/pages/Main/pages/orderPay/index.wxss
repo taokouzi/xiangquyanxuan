@@ -1,0 +1,101 @@
+@import "/template/cardList/leftRight.wxss";
+@import "/template/addr/index.wxss";
+
+.btn._wx:active{
+    background: #50B674 !important;
+    transition: all .1s ease-in-out;
+    -webkit-transition: all .1s ease-in-out;
+}
+.footer{
+    height: 120rpx;
+    background: #ffffff;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+}
+.xuan{
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 10rpx;
+}
+.step{
+    position: absolute;
+    right: 0;
+}
+.sp-2{
+    padding: 24rpx;
+}
+.sp{
+    padding-bottom: 130rpx;
+}
+textarea{
+    width:96%;
+    height: 140rpx;
+    margin:0 auto;
+    display:block;
+    background:#efefef;
+    border-color: #efefef;
+    padding:10rpx 12rpx;
+    border-radius: 4rpx;
+    margin-top: 24rpx;
+}
+.xuan{
+width: 28rpx;
+height: 28rpx;
+margin-right: 10rpx;
+}
+.price{
+  width: 32%;
+  text-align:right;
+  padding-left: 24rpx;
+}
+.price-num{
+  color: #FF4900;
+}
+.btn{
+  width: 60%;
+  position: absolute;
+  right: 24rpx;
+}
+.li>.left{
+    width: 160rpx;
+}
+.li>input,.li .input{
+    flex: 1;
+}
+.li{
+    position: relative;
+    padding: 24rpx;
+    display: flex;
+}
+.li .ai{
+    position: absolute;
+    right: 24rpx;
+}
+.jbq text{
+  display: inline-block;
+  width: 56rpx;
+  height: 56rpx;
+  text-align: center;
+  line-height: 56rpx;
+  background: #f2f3f5;
+}
+.jbq .num{
+  margin: 0 4rpx;
+}
+.jbq text.over{
+  opacity: .5;
+}
+.no-peis{
+  position: fixed;
+  bottom: 120rpx;
+  width: 100%;
+  z-index: 9;
+  left: 0;
+  background: #fef0f0;
+  color: #FF4900;
+  text-align: center;
+  padding:16rpx 24rpx;
+}

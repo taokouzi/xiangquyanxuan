@@ -1,0 +1,26 @@
+<template name="stepLeftRight">
+  <view class="steps">
+    <view class="s-items">
+
+      <view class="step {{ nowStep>=0?'active':'' }}">
+        <view class="s-title">买家下单</view>
+        <view class="s-container"><i></i></view>
+        <view class="s-line"></view>
+      </view>
+
+
+      <view class="step {{ nowStep>=1?'active':'' }}">
+        <view class="s-title">处理中</view>
+        <view class="s-container"><i></i></view>
+        <view class="s-line"></view>
+      </view>
+
+      <view class="step {{ nowStep>=2?'active':'' }}">
+        <view class="s-title">已结束</view>
+        <view class="s-container"><i></i></view>
+        <view class="s-line"></view>
+      </view>
+      
+    </view>
+  </view>
+</template>

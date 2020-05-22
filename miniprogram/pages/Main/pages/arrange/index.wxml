@@ -1,0 +1,151 @@
+<van-toast id="custom-selector" />
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">预约到店</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+<view class="line" style='padding-top:{{nav.navHeight}}px'></view>
+
+<view class="arrange">
+<view class="line"></view>
+<view class="order rds">
+    <view class="fs14 ai li xix xixb">
+        <span class="hui">订单编号</span>
+        <span style="position:absolute;right:0;">{{ id }}</span>
+    </view>
+    
+    <view class="fs14 ai li xix xixb">
+        <span class="hui">服务项目</span>
+        <span class="num1" style="position:absolute;right:0;max-width:60vw;">{{ specsName }}</span>
+    </view>
+
+    <view class="fs14 ab li xix xixb">
+        <span class="hui">数量</span>
+        <!-- <span class="right step" style="position:absolute;right:0;max-width:60vw;">
+          <van-stepper v-model="arrangeNum" :max="canUseNum" integer/>
+        </span> -->
+
+        <view class="right step jbq">
+            <text class="fs14 {{ isOver?'over':'' }}" data-num="{{ buyNum }}" bindtap="reduceNum">-</text>
+            <text class="fs14 num">{{ buyNum }}</text>
+            <text class="fs14 {{ isOver2?'over':'' }}" data-num="{{ buyNum }}" bindtap="addNum">+</text>
+          </view>
+    </view>
+
+    <view class="fs14 ai li xix xixb" wx:if="{{branchVOS.length == 1}}">
+        <span class="hui">预约门店：</span>
+        <view class="ai" style="position:absolute;right:0;">
+            <a>{{ branchVOS[0].branchName }}</a>
+        </view>
+    </view>
+    <view class="fs14 ai li xix xixb" wx:else bindtap="fnShowMendian">
+        <span class="hui">预约门店</span>
+        <view class="ai" style="position:absolute;right:0;">
+            <a class="{{mdIdx==-1?'hui':''}}">{{ mdIdx==-1?'请选择':branchVOS[mdIdx].branchName }}</a>
+            <image style="width:16rpx;height:16rpx;margin-left:16rpx;" src="/images/you.png" alt="" />
+        </view>
+    </view>
+
+    <view class="fs14 ai li" bindtap="fnShowDaodianTime">
+        <span class="hui">到店时间</span>
+        <view class="ai" style="position:absolute;right:0;">
+            <a wx:if="{{selectTime=='请选择时间'}}" class="hui">请选择</a>
+            <a wx:else>{{selectDay.year+'年'+selectDay.month+'月'+selectDay.date+'日 '+selectTime}}</a>
+            <image style="width:16rpx;height:16rpx;margin-left:16rpx;" src="/images/you.png" alt="" />
+        </view>
+    </view>
+
+</view>
+
+<view style="padding:0 24rpx;">
+    <button class="btn" bindtap="fnArrange" wx:if="{{ selectTime!='请选择时间' }}">确认预约</button>
+    <button class="btn" wx:else style="opacity:.5">确认预约</button>
+</view>
+
+
+
+
+<!-- 预约门店 -->
+<van-popup
+show="{{showMendian}}" 
+round 
+bind:close="onCloseShowMendian"
+position="bottom"
+>
+    <view class="clear">
+        <view class="mds" style="padding:24rpx 36rpx 80rpx 36rpx;">
+            <a href="javascript:;" data-index="{{index}}" bindtap="fnChangeMd" wx:for="{{branchVOS}}" wx:key="index" class="ax ai xix xixb">
+                <span class="fs14">{{ item.branchName }}</span>
+                <image style="width:16rpx;height:16rpx;position:absolute;right:0;" src="/images/you.png" alt="" />
+            </a>
+        </view>
+    </view>
+</van-popup>
+
+
+<!-- 到店时间 -->
+<van-popup show="{{showDaodianTime}}" 
+position="bottom" 
+round 
+bind:close="onCloseShowDaodianTime"
+style="height:100rpx;overflow:hidden;">
+    <view id="calendar" class="lt">
+        <view class="weekdays-time ab fs14" style="text-align:left;">
+            <view class="ai">
+                <span class="fs12 hui">选择预约日期：</span>
+                <view style="padding-right:20rpx;">{{selectDay.year+'年'+selectDay.month+'月'+selectDay.date+'日'}}</view>
+                <view class="ai" bindtap="fnShowPicker">
+                {{selectTime}}
+                <image style="width:16rpx;height:16rpx;margin-left:8rpx;" src="/images/you.png" alt="" />
+                </view>
+            </view>
+            <button class="btn-yy" bindtap="fnSelectDayOK">确认</button>
+        </view>
+        <ul class="weekdays fs12">
+            <li>一</li>
+            <li>二</li>
+            <li>三</li>
+            <li>四</li>
+            <li>五</li>
+            <li>六</li>
+            <li>日</li>
+        </ul>
+        <view class="arrDays">
+            <view wx:for="{{arrDays}}" wx:for-item="dayList" wx:key="index" class="calendarData" style="padding-top:40rpx;">
+                <view class="years fs12">
+                    {{dayList.year}}年<span class="fs16 bold" style="padding:0 4rpx;">{{dayList.moth}}</span>月
+                </view>
+                <ul class="days fs14">
+                    <li wx:for="{{dayList.days}}" wx:for-item="day" wx:key="index">
+                    <!--今天-->
+                    <span wx:if="{{day.dy!=''}}">
+                        <span wx:if="{{day.canBook}}" data-d="{{day.d}}" data-y="{{day.y}}" data-m="{{day.m}}" data-dy="{{day.dy}}" data-index="{{index}}" bindtap="fnSelectDay">
+                            <span wx:if="{{ day.y == ny && day.m == nm && day.dy == ndy }}" class="curDay active {{(dy==day.dy && index==idx)?'on':''}}">{{ day.dy }}
+                            </span>
+                            <span wx:else class="curDay {{(dy==day.dy&&index==idx)?'on':''}}">{{ day.dy }}</span>
+                        </span>
+                        <span wx:else class="curDay hui">{{ day.dy }}</span>
+                    </span>
+                    </li>
+                </ul>
+            </view>
+        </view>
+    </view>  
+</van-popup>
+<!-- 选择预约时间 -->
+<van-popup show="{{showPicker}}" bind:close="onCloseShowPicker" position="bottom">
+<van-picker
+    show-toolbar
+    columns="{{columns}}"
+    bind:confirm="onConfirm"
+    bind:cancel="onCancel"
+/>
+</van-popup>
+
+
+</view>

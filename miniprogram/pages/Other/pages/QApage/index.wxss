@@ -1,0 +1,16 @@
+/* miniprogram/pages/Other/pages/QApage/index.wxss */
+page{
+  background: #fff;
+}
+.qa{
+  margin: 40rpx 0;
+}
+.qa view{
+  font-size: 26rpx;
+  line-height: 50rpx;
+}
+.qa view.title{
+  font-size: 30rpx;
+  line-height: 60rpx;
+  font-weight: bold;
+}

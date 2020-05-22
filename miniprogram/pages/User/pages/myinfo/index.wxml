@@ -1,0 +1,76 @@
+<van-toast id="custom-selector" />
+<view class="me ">
+  <view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+    <view class='nav-title'>
+      <text class="fs15">我的信息</text>
+      <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+        <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="line" style='padding-top:{{nav.navHeight}}px'></view>
+  <view class="line"></view>
+
+    <view class="rds">
+        <view class="li xix xixb ai">
+            <text class="fs14">头像</text>
+            <view class="ai">
+                <image class="header" mode="widthFix" src="{{ user.headImg }}" alt=""></image>
+            </view>
+        </view>
+
+        <view class="li xix xixb ai" bindtap="fnShowNickAlert">
+            <text class="fs14">昵称</text>
+            <view class="ai">
+                <a href="javascript:;" class="fs12 hui num1" style="display:inline-block;max-width:300rpx;">{{ user.userName }}</a>
+                <image mode="widthFix" style="width:16rpx;margin-left:16rpx;" src="/images/you.png" alt=""></image>
+            </view>
+        </view>
+
+        <view class="li xix xixb ai">
+            <text class="fs14">身份状态</text>
+            <view class="ai">
+                <a href="javascript:;" class="fs12 hui">{{ userTypes[user.userType].val }}</a>
+            </view>
+        </view>
+
+        <view class="li ai">
+            <text class="fs14">手机号</text>
+            <button class="ai not-btn fs12 hui" wx:if="{{phoneState==0 }}" open-type='getPhoneNumber' bindgetphonenumber='fnGetPhoneNumber'>授权获取手机号</button>
+            <view wx:else class="ai">
+                <a href="javascript:;" class="fs12 hui">
+                  {{ user.phone || '' }}
+                  <!-- <text class="fs10">（{{ phones.phoneStatus ? '已验证':'未验证' }}）</text> -->
+                </a>
+                <!-- <button class="not-btn" style="margin-left:16rpx;" open-type='getPhoneNumber' bindgetphonenumber='fnGetPhoneNumber'>
+                  <image src="/images/gx.png" style="width:24rpx;height:24rpx;"></image>
+                </button> -->
+            </view>
+        </view>
+    </view>
+
+    <view class="line"></view>
+
+    <view style="padding:48rpx 24rpx;">
+      <button class="btn btn1" wx:if="{{ phones.showVerPhoneBtn }}" open-type='getPhoneNumber' bindgetphonenumber='regPhoneNumber' style="margin-bottom:48rpx;">点击验证手机号</button>
+      <button class="btn btn2" wx:if="{{ phones.showSynchronizePhoneBtn }}" bindtap="synchronizeSamePhone" style="font-size:26rpx !important;">该手机号下已绑定其他账户，可点击同步账户</button>
+    </view>
+
+</view>
+
+
+
+<form bindsubmit="fnEdit" wx:if="{{ showNickAlert }}">
+  <view class='opacity'></view>
+  <view class='layer' style="padding-top:30rpx;">
+      <text class="fs15">修改昵称</text>
+      <input class="edit-nick fs14" auto-focus name="userName" value="{{ user.userName }}" placeholder="修改昵称"/>
+      <view class="edit-btns">
+        <button class="close fs14"bindtap="fnclose">关闭</button>
+        <button class="ok fs14" form-type='submit'>确认</button>
+      </view>
+  </view>
+</form>

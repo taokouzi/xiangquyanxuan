@@ -1,0 +1,39 @@
+<van-toast id="custom-selector" />
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">支付完成</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+
+
+<view class="pay" style='padding-top:{{nav.navHeight}}px'>
+    <image class="pay-icon" src="/images/payokicon.png" alt="" />
+    
+    <view class="pay-box">
+        <view class="pay-li clear">
+            <text class="fs14 hui">订单编号：</text>
+            <text class="fs14">{{ orders.id }}</text>
+        </view>
+        <view class="pay-li clear">
+            <text class="fs14 hui">商品名称：</text>
+            <text class="fs14">{{ orders.commodityName }}</text>
+        </view>
+        <view class="pay-li clear">
+            <text class="fs14 hui">支付金额：</text>
+            <view class="ai"><text class="fs10">￥</text><text class="fs14 n">{{ orders.totalAmount }}</text></view>
+        </view>
+        <view class="pay-li clear">
+            <text class="fs14 hui">创建时间：</text>
+            <text class="fs14" wx:if="{{orders.createTime}}">{{ orders.createTime }}</text>
+        </view>
+    </view>
+    
+    <button class="btn" bindtap="goOrder">查看订单</button>
+    <button class="btn go-home" bindtap="goHome">商城首页</button>
+
+</view>

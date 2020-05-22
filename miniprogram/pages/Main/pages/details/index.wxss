@@ -1,0 +1,593 @@
+@import "/template/empower/layerBottom.wxss";
+
+.fixBtnText{
+    position: absolute;
+    width: 100%;
+    display: block;
+    text-align: center;
+    top: 38rpx;
+    color: #F8412A;
+}
+.details{
+    background: #ffffff;
+    padding-bottom: 60rpx;
+}
+.details .nodes{
+  padding:0 10rpx;
+  max-width: 100vw;
+  overflow: hidden;
+  /* overflow-x: hidden; */
+  /* padding-bottom: 20rpx; */
+}
+.custom-indicator{
+    position: absolute;
+    right: 24rpx;
+    bottom: 24rpx;
+    border-radius: 40rpx;
+    z-index: 2;
+    padding: 0 16rpx;
+    background: rgba(0, 0, 0, .5);
+    color: #ffffff !important;
+    height: 40rpx;
+    line-height: 40rpx;
+}
+.fs10.hui{
+    line-height: 44rpx !important;
+}
+.share-tip{
+    position: fixed;
+    top: 20rpx;
+    right: 60rpx;
+    width: 60%;
+    z-index: 999999;
+}
+.sbtn{
+    /* font-size: 16px; */
+    color: #1989fa;
+    text-align: center;
+    height: 100rpx;
+    line-height: 96rpx;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+/* .share-box li{
+    float: left;
+    width: 50%;
+    text-align: center;
+    padding-top: 50rpx;
+}
+.share-box li image{
+    margin: 0 auto;
+}
+.share-box li p{
+    padding-top: 10rpx;
+} */
+/* 
+.share-box.share-details-box .li{
+  float: left;
+  width: 33.33%;
+  text-align: center;
+  padding-top: 50rpx;
+}
+.share-box.share-details-box .li image{
+  margin: 0 auto;
+}
+.share-box.share-details-box .li view{
+  padding-top:10rpx;
+} */
+.share{
+    position: absolute;
+    right: 0;
+}
+.share image{
+    width: 34rpx;
+    height: 34rpx;
+    margin:0 auto;
+}
+.d-more-box{
+  padding: 0 10rpx;
+}
+.d-more{
+  box-sizing: border-box;
+  /* max-width: 100% !important; */
+}
+
+/* .d-more .rich-img,.d-more img,.d-more image{
+  width: auto !important;
+  height: auto !important;
+  margin:0 auto !important;
+  max-width: 100% !important;
+} */
+/* 1列表进入的 */
+.com1 .btn{
+    width: 56vw;
+    position: absolute;
+    right: 24rpx;
+}
+.com1 .d-phone{
+    display: block;
+    width: 13vw;
+    text-align: center;
+}
+.com1 .btn-box{
+    width:65vw;
+}
+.com1 .btn-box .btn{
+    width:32.5vw;
+}
+.com1 .btn-box .btn.left{
+    right:32.5vw;
+}
+/* 0直接进入的 */
+.com0 .btn{
+    width: 66.67vw;
+    position: absolute;
+    right: 24rpx;
+}
+.d-footer .btn {
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 30rpx !important;
+}
+.com0 .d-phone{
+    display: block;
+    width: 26.5vw;
+    text-align: center;
+}
+.com0 .btn-box{
+  width:71vw;
+}
+.com0 .btn-box .btn{
+  width:35.5vw;
+}
+.com0 .btn-box .btn.left{
+  right:35.5vw;
+}
+.com0 .d-phone:first-child{
+    display: none;
+}
+.d-phone image{
+    width: 50rpx;
+    height: 50rpx;
+    margin: 0 auto;
+}
+.d-footer{
+    height: 120rpx;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 11;
+    background: #ffffff;
+    padding:0 24rpx;
+}
+.fixBtn{
+    position: fixed;
+    right: 16rpx;
+    top: 60vh;
+    width: 120rpx;
+    z-index: 9;
+    transition: right .3s ease-in-out .6s;
+    -webkit-transition: right .3s ease-in-out .6s;
+}
+.fixBtn.hide{
+    right: -60rpx;
+    transition: right .3s ease-in-out;
+    -webkit-transition: right .3s ease-in-out;
+}
+.d-title{
+    padding:24rpx;
+}
+.d-title i{
+    display: inline-block;
+    width: 6rpx;
+    border-radius: 6rpx;
+    height: 32rpx;
+    background: #FF4900;
+    margin-right: 10rpx;
+    position: relative;
+    top: 0;
+}
+.sel-li{
+    display: flex;
+    padding: 24rpx;
+    background: #ffffff;
+}
+.sel-li>span{
+    display: block;
+    width: 100rpx;
+}
+.sel-list{
+    flex: 1;
+}
+.price-box{
+    padding:2rpx 0 10rpx 0;
+    position: relative;
+}
+.tips{
+    margin-left: 24rpx;
+}
+.tips li,.tips .li{
+    padding:2rpx 10rpx;
+    background: rgba(255,73,0,.2);
+    border-radius: 2rpx;
+    margin-right: 10rpx;
+}
+.hongbao{
+  background: rgba(255,195,0,.5) !important;
+  color: #333 !important;
+}
+.volume{
+    position: absolute;
+    right: 0;
+}
+.red{
+    color: #FF4900;
+}
+.now-price{
+    padding-right: 20rpx;
+}
+.c-box{
+    overflow: hidden;
+    margin-bottom: 40rpx;
+    background: #ffffff;
+}
+.text-box{
+    padding: 24rpx;
+    background: #ffffff;
+}
+.img-box{
+  position: relative;
+}
+.img-box .img{
+    height: 46.67vw;
+    width: 100%;
+    object-fit: cover;
+}
+.icon-tip{
+    width: auto;
+    height: 48rpx;
+}
+.status{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    color: #ffffff;
+    text-align: center;
+}
+.status span{
+    position: absolute;
+    z-index: 2;
+    color: #ffffff;
+    top: 0;
+    margin-left: -6rpx;
+    display: block;
+    line-height: 48rpx;
+    text-align: center;
+}
+.old-price{
+    text-decoration: line-through;
+}
+.num-box{
+    padding-top: 16rpx;
+}
+.num-box span{
+    display: block;
+    width: 50%;
+}
+.num-box span:nth-of-type(2){
+    text-align: center;
+}
+.num-box span:nth-of-type(3){
+    text-align: right;
+}
+.sel-list li{
+    background: #F5F5F5;
+    border:1rpx solid transparent;
+    border-radius: 4rpx;
+    color: #333333;
+    margin-bottom: 20rpx;
+    margin-right: 20rpx;
+    line-height: 38rpx;
+    height: 44rpx;
+    padding-top: 6rpx;
+}
+.sel-list li:last-child{
+    margin-right: 0;
+}
+.sel-list li.active{
+    background: rgba(255,73,0,.05);
+    border-color:#FF4900;
+    color: #FF4900;
+}
+.sel-li .tips{
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+.ax{
+  width:100%;
+  padding-bottom:30rpx;
+  position:relative;
+}
+.dtel{
+  width: 24rpx; 
+  position: absolute;
+  right: 24rpx;
+}
+.icon-tip{
+  height: 48rpx !important;
+  transform: rotate(180deg);
+}
+.status b{
+  padding: 0 6rpx;
+}
+.layer{
+  display:flex;
+  align-items: center;
+}
+.layer>view,.layer>.view{
+  display: inline-block;
+  /* width: 33.333333%; */
+  width: 50%;
+  text-align: center;
+}
+.layer>view .hui,.layer>.view .hui{
+  line-height: 56rpx;
+  padding-top: 14rpx;
+  font-size: 24rpx;
+}
+/* .poster{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 13;
+}
+.poster-opacity{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 12;
+  background: rgba(0,0,0,.85);
+} */
+.poster-box{
+  text-align: center;
+  position: fixed;
+  width: 450rpx !important;
+  height: 804rpx !important;
+  margin:-402rpx 0 0 -225rpx;
+  left: 50%;
+  top: -402rpx;
+  opacity: 0;
+  right: 0;
+  z-index: 25;
+  color: #ffffff;
+  transition: top .15s ease-out,opacity 0s ease-out;
+  -webkit-transition: top .15s ease-out,opacity 0s ease-out;
+}
+.poster-box.active{
+  top: 45%;
+  opacity:1;
+  transition: all .3s ease-out;
+  -webkit-transition: all .3s ease-out;
+}
+
+/* .poster-close{
+  width: 24rpx;
+  height: 24rpx;
+  position: absolute;
+  right: -75rpx;
+  top: -25rpx;
+  padding: 26rpx;
+  box-sizing: content-box;
+} */
+.poster-btns{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2vh;
+}
+.poster-btns button{
+  display: inline-block;
+  text-align: center;
+}
+.save{
+  background: #FF4900 !important;
+  color: #ffffff !important;
+  border-radius: 70rpx;
+  padding: 0 40rpx;
+  box-sizing: content-box;
+}
+.showLayerPhone .layer{
+  height: auto;
+  padding: 20rpx 0;
+  bottom: -80vh;
+}
+.showLayerPhone ul{
+  display: block;
+  width: 100%;
+}
+.showLayerShare .layer{
+  width: auto;
+  height: 224rpx;
+  bottom: -224rpx;
+  box-sizing: border-box;
+  left: 20rpx;
+  right: 20rpx;
+  border-radius: 20rpx;
+}
+.showLayerShare .layer image{
+  width: 80rpx;
+  height: 80rpx;
+}
+.showLayerShare .layer.active{
+  bottom: 40rpx !important;
+}
+
+
+.go-top{
+  position: fixed;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  right: 36rpx;
+  z-index: 19;
+  width: 80rpx;
+  height: 80rpx;
+  bottom: 340rpx;
+  padding: 16rpx;
+  padding-right: 14rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 20rpx 60rpx rgba(0,0,0,.2);
+  object-fit: cover;
+  transition: right .3s ease-in-out .7s;
+  -webkit-transition: right .3s ease-in-out .7s;
+}
+.go-top.hide{
+  right: -80rpx;
+  transition: right .3s ease-in-out;
+  -webkit-transition: right .3s ease-in-out;
+}
+
+
+.store-address .xixb:last-child:before{
+  border-color: transparent;
+}
+.show-more.on{
+  transform:rotate(90deg);
+  -webkit-transform:rotate(90deg);
+}
+.show-more.off{
+  transform:rotate(-90deg);
+  -webkit-transform:rotate(-90deg);
+}
+
+
+.layer-align-tips{
+  margin-left: .12rem;
+  position: relative;
+  top: -.03rem;
+}
+.layer-align-tips li{
+  padding:.03rem .05rem;
+  background: rgba(255,73,0,.2);
+  margin-right: .05rem;
+  border-radius: .1rem;
+}
+.jbq text{
+  display: inline-block;
+  width: 56rpx;
+  height: 56rpx;
+  text-align: center;
+  line-height: 56rpx;
+  background: #f2f3f5;
+}
+.jbq .num{
+  margin: 0 4rpx;
+}
+.jbq text.over{
+  opacity: .5;
+}
+
+
+.kf-box .van-popup{
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.kefu{
+  width: 400rpx;
+  height: 240rpx;
+  text-align: center;
+  padding: 0 20rpx;
+}
+.kefu image{
+  width: 100rpx;
+  height: 100rpx;
+  margin: 0 auto;
+}
+.kefu .aj{
+  height: 120rpx;
+  line-height: 120rpx;
+  width: 50%;
+  text-align: center;
+}
+.kf-text{
+  text-align: center;
+  padding-top: 40rpx;
+}
+.kefu button{
+  background: transparent !important;
+}
+
+.showPosterLayer .van-popup{
+  background: transparent !important;
+  width:520rpx;
+  text-align: center;
+}
+.poster-img{
+  border-radius: 10rpx;
+  width:520rpx;
+  height: 925rpx;
+  margin: 0 auto;
+}
+.showPosterLayer button{
+  background: rgb(255, 195, 0);
+  color: rgb(51, 51, 51);
+  width: 220rpx;
+  margin-top:40rpx;
+  font-size: 26rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+}
+.details-btn{
+  border-radius:0 !important;
+  width:32.5vw !important;
+  right:0 !important;
+}
+.djs{
+  justify-content: flex-end;
+  /* background: #FFC300; */
+  background: rgb(230, 79, 19);
+  position: fixed;
+  left: -350rpx;
+  z-index: 3;
+  color: #ffffff;
+  padding: 8rpx 12rpx;
+  animation: move 1s ease-out 1s;
+  animation-fill-mode: forwards;
+  -webkit-animation: move 1s ease-out 1s;
+  -webkit-animation-fill-mode: forwards;
+}
+.djs .ing-end-time{
+  background: #FFC300;
+  color: #333;
+  text-align: center;
+}
+@keyframes move{
+  0%{
+    left: -350rpx;
+  }
+  50%{
+    left: 412rpx;
+  }
+  100%{
+    left: 24rpx;
+  }
+}
+@-webkit-keyframes move{
+  0%{
+    left: -350rpx;
+  }
+  50%{
+    left: 412rpx;
+  }
+  100%{
+    left: 24rpx;
+  }
+}

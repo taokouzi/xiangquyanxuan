@@ -1,0 +1,38 @@
+.tip{
+    padding:2rpx 10rpx;
+    background: #efefef;
+    border-radius: 2rpx;
+    max-width: 40vw;
+} 
+.sp-price{
+    margin-top: 60rpx;
+}
+.sp-box{
+    display: flex;
+    padding: 24rpx 0;
+}
+.sp-container{
+    flex: 1;
+    height: 180rpx;
+}
+.sp-title{
+    line-height: 40rpx;
+    height: 80rpx;
+    position: relative;
+    top: -4rpx;
+}
+.sp-img{
+    border-radius: 4rpx;
+    /* width: 260rpx;
+    height: 138.667rpx; */
+    width: 180rpx;
+    height: 180rpx;
+    margin-right: 20rpx;
+    object-fit: cover;
+}
+.fs12{
+    line-height: normal;
+}
+.fs13.num2{
+  line-height: 40rpx;
+}

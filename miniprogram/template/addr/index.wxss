@@ -1,0 +1,27 @@
+.xuan{
+width: 28rpx;
+height: 28rpx;
+margin-right: 10rpx;
+}
+.li>.left{
+    width: 160rpx;
+}
+.li>input,.li .input{
+    flex: 1;
+}
+.li{
+    position: relative;
+    padding: 36rpx 24rpx;
+    display: flex;
+}
+.li .ai{
+    position: absolute;
+    right: 24rpx;
+}
+input{
+  border-color: none !important;
+}
+textarea{
+  position: relative;
+  top: -12rpx;
+}

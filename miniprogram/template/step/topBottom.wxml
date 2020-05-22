@@ -1,0 +1,56 @@
+<template name="stepTopBottom">
+ <view class="steps">
+
+  <wxs module="fn">
+    var timestampToTime= function (timestamp) {
+      var date = getDate(timestamp),
+      Y = date.getFullYear() + '-',
+      M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
+      D = (date.getDate() < 10?'0'+date.getDate():date.getDate()) + ' ',
+      h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':',
+      m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':',
+      s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+      return Y + M + D + h + m + s;
+    }
+    module.exports.timestampToTime=timestampToTime;
+  </wxs>
+  
+  <view wx:if="{{ th3 == 1 }}">
+    <view class="step" wx:if="{{ or.finishTime }}">
+      <view>
+        <p class="fs13">订单完成 <span class="">{{ fn.timestampToTime(or.finishTime) }}</span></p>
+      </view>
+      <view class="step-icon"><i></i></view>
+      <view class="step-line"></view>
+    </view>
+
+    <view class="step" wx:if="{{ or.deliveryTime }}">
+      <view>
+        <p class="fs13">订单发货 <span class="">{{ fn.timestampToTime(or.deliveryTime) }}</span></p>
+      </view>
+      <view class="step-icon"><i></i></view>
+      <view class="step-line"></view>
+    </view>
+
+    <view class="step" wx:if="{{ or.payTime }}">
+      <view>
+        <p class="fs13">订单支付 <span class="">{{ fn.timestampToTime(or.payTime) }}</span></p>
+      </view>
+      <view class="step-icon"><i></i></view>
+      <view class="step-line"></view>
+    </view>
+  </view>
+
+  <view wx:else>
+    <view class="step" wx:for="{{ or }}" wx:key="index">
+      <view class="">
+          <view class="fs13">{{ item.AcceptStation || item.ShipperName }}</view>
+          <view class="fs13">{{ item.AcceptTime || '' }}</view> 
+      </view>
+      <view class="step-icon"><i></i></view>
+      <view class="step-line"></view>
+    </view>
+  </view>
+
+</view>
+</template>

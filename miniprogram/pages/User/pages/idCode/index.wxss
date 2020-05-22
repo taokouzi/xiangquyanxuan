@@ -1,0 +1,57 @@
+/* miniprogram/pages/User/pages/idCode/index.wxss */
+page{
+  background: #fff;
+}
+.ma-box{
+  /* text-align: center; */
+  padding: 24rpx;
+}
+.ma{
+  margin-top: 100rpx !important;
+}
+.m-title{
+    position: relative;
+    padding: 30rpx 24rpx;
+    padding-bottom:40rpx;
+}
+.btn{
+  margin:60rpx auto;
+  height: 68rpx;
+  line-height: 68rpx;
+  width: 240rpx;
+  background: linear-gradient(to right, #4bb0ff, #6149f6);
+}
+.save-btn{
+  background: linear-gradient(to right, #FFC300, #FF4900);
+}
+.fs14{
+  font-size: 28rpx !important;
+}
+.m-title .fs13{
+  padding:24rpx 0;
+}
+.showPosterLayer .van-popup{
+  background: transparent !important;
+  width:520rpx;
+  text-align: center;
+}
+.poster-img{
+  border-radius: 10rpx;
+  width:520rpx;
+  height: 925rpx;
+  margin: 0 auto;
+}
+.showPosterLayer button{
+  background: rgb(255, 195, 0);
+  color: rgb(51, 51, 51);
+  width: 220rpx;
+  margin-top:40rpx;
+  font-size: 26rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+}
+.details-btn{
+  border-radius:0 !important;
+  width:32.5vw !important;
+  right:0 !important;
+}

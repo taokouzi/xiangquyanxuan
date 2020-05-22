@@ -1,0 +1,33 @@
+<!-- 商品卡片(列表左右) -->
+<template name="cardList1">
+  <view class="c-box rds _list cardList1">
+        <view class="img-box">
+            <image class="imgLoad" style="width:100%;height:351rpx;" mode="aspectFill" src="{{ item.firstPic ? item.firstPic : '/images/imgLoad.png' }}" lazy-load="true"></image>
+            <block wx:if="{{item.state!=4}}">
+              <!-- 倒计时 -->
+              <view wx:if="{{ item.state==4.5}}" class="goodStateTip goodStateTipDJS">
+                <p class="fs13 num1 ai">
+                  <image class="fs12" style="width:28rpx;height:28rpx;margin-right:2rpx;display:inline-block;" src="/images/biao.png" alt="" />
+                  <i class="ing-end-time fs10">{{ item.time.h }}</i>
+                  <b>:</b>
+                  <i class="ing-end-time fs10">{{ item.time.m }}</i>
+                  <b>:</b>
+                  <i class="ing-end-time fs10">{{ item.time.s }}</i>
+                </p>
+              </view>
+              <view wx:else class="goodStateTip goodStateTipOther">{{ item.nowState }}</view>
+            </block>
+        </view>
+        <view class="text-box">
+            <view class="fs14" style="padding-bottom:8rpx;">{{ item.title }}</view>
+            <view class="tips clear" wx:if="{{ item.rebate }}">
+                <view class="left fan red fs12 hongbao">返<i class="fs10">￥</i><span class="n">{{ item.rebate }}</span></view>
+            </view>
+            <view class="clear price-box ai">
+                <span class="left fs12 red now-price">￥<i class="fs16 bold"><span class="n">{{ item.sellingPrice }}</span></i></span>
+                <span class="left fs12 old-price hui">原价<i class="fs10">￥</i><span class="n">{{ item.originalPrice }}</span></span>
+                <span class="right fs12 volume hui">已售<span class="n">{{ item.salesVolume || 0 }}</span></span>
+            </view>
+        </view>
+    </view>
+</template>  

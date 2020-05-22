@@ -1,0 +1,26 @@
+<template name="addr">
+  <view class="addr">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <label class="li ai xix xixb" for="">
+          <text class="left fs14">收货人</text>
+          <input name="receiver" class="left" value="{{ addr.receiver }}" bindinput="changeReceiver" type="text" placeholder="请填写收货人姓名" />
+      </label>
+      <label class="li ai xix xixb">
+          <text class="left fs14">手机号码</text>
+          <input name="phone" class="left" value="{{ addr.phone }}" bindinput="changePhone" type="number" placeholder="请填写收货人手机号" />
+      </label>
+
+      <picker wx:if="{{addr.type!=2}}" mode="region" name="region" bindchange="bindRegionChange" value="{{ addr.region || [] }}" custom-item="{{customItem||'' }}">
+        <label class="li ai xix xixb" style="position:relative;">
+            <text class="left fs14">所在地区</text>
+            <text wx:if="{{ addr.region[0] }}">{{ addr.region[0]+' '+addr.region[1]+' '+addr.region[2] }}</text>
+            <text wx:else class="hui">请选择所在地区</text>
+        </label>
+      </picker>
+      <label wx:if="{{addr.type!=2}}" class="li xix xixb">
+          <text class="left fs14">详细地址</text>
+          <textarea class="left input" bindinput="changeAddress" style="background:transparent;border:none;height:90rpx;resize:none;position:relative;top:-20rpx;padding-left:0;margin-top:0;" type="text" placeholder="街道、小区、楼牌号、乡镇、村" name="address" value="{{ addr.address }}"></textarea>
+      </label>
+    </form>
+  </view>
+</template>

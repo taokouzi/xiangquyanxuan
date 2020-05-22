@@ -1,0 +1,78 @@
+<van-toast id="custom-selector" />
+<scroll-view class="index" style="height:100vh;" scroll-y="true" bindscrolltolower="searchScrollLower">
+<!-- <view class='nav bg-red' style='height:{{nav.navHeight}}px;background:transparent;'> -->
+<view class="nav" style='height:{{nav.navHeight}}px;background:linear-gradient(#FF6B13, #FF690E);'>
+  <view class='nav-title'>
+    <text class="fs15">直属{{ type=='tz'?'达人':'团长' }}</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+
+<image style="width:100vw;height:80vw;position:absolute;top:0;left:0;" src="/images/bg-team.png"></image>
+
+
+<view class="box-chart" style='padding-top:{{nav.navHeight}}px;z-index:2;position:relative;'>
+  <view>
+    <view class="ai" style="margin-top:20rpx;">
+      <navigator class="my-ma" url="/pages/User/pages/idCode/index?type={{type}}" hover-class="none">
+        <image src="/images/ewm.png"></image>
+        <text class="fs8 fff">{{ type=='tz'?'团长':'推广员' }}码</text>
+      </navigator>
+      <navigator url="/pages/User/pages/searchTeamList/index?comfrom=teamList&type={{type}}" class="ab rds search">
+        <text class="fs12 ddd">搜索账号名称</text>
+        <image style="width:44rpx;height:44rpx;" src="/images/search2.png"></image>
+      </navigator>
+    </view>
+    
+
+    <view class="card fff ab">
+      <view>
+        <view class="fs30 n">{{ num.totalIncome || 0 }}</view>
+        <view class="fs11 ddd">{{ type=='tz'?'达人':'团长' }}总收益（元）</view>
+      </view>
+      <view>
+        <view class="fs30 n">{{ num.members || 0 }}</view>
+        <view class="fs11 ddd">{{ type=='tz'?'达人':'团长' }}总人数（人）</view>
+      </view>
+    </view>
+  </view>
+  
+  
+  <view class="t-list-box" wx:if="{{list.length>0}}">
+    <block wx:for="{{list}}" wx:key="index">
+    <navigator hover-class="none" class="ab t-list rds" url="/pages/User/pages/teamInfo/index?type={{type}}&id={{ item.id }}">
+      <view class="ai">
+        <image class="rds" style="border-radius: 50%;" src="{{ item.headImg || '/images/head.png' }}"></image>
+        <view>
+          <view class="fs14 ai bold">
+            <text class="num1" style="max-width:35vw;display:inline-block;">{{ item.userName || '匿名用户' }}</text>
+            <text class="red" wx:if="{{type == 'tz'}}" style="margin-left:20rpx;">{{ item.level || '-' }}</text>
+            <text class="red" wx:else style="margin-left:20rpx;">{{ item.levelTop || '-' }}</text>
+          </view>
+          <view class="fs12 hui" wx:if="{{type == 'tz'}}" style="padding:16rpx 0;">授权时间 {{ item.talentRegisterDate || '-' }}</view>
+          <view class="fs12 hui" wx:else style="padding:16rpx 0;">授权时间 {{ item.regimentalCommanderRegisterDate || '-' }}</view>
+          <view class="fs12 hui" wx:if="{{type == 'tz'}}">备注 {{ item.remark || '-' }}</view>
+          <view class="fs12 hui" wx:else>备注 {{ item.remarkTop || '-' }}</view>
+        </view>
+      </view>
+      <view style="text-align:right;">
+        <view class="fs10 hui">贡献返利</view>
+        <text class="red bold fs12">￥<text class="fs16 n">{{ item.contribution }}</text> </text>
+      </view>
+    </navigator>
+    </block>
+    <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+  </view>
+  <view wx:else>
+      <view class="fs14 hui" style="text-align:center;padding-top:200rpx;">
+          <image style="width:300rpx;height:222rpx;margin:30rpx auto;" src="/images/notorder.png" alt="" />
+          暂无{{type=='tz'?'达人':'团长'}}数据
+      </view>
+  </view>
+
+</view>
+</scroll-view>

@@ -1,0 +1,67 @@
+<!--miniprogram/pages/test/index.wxml-->
+<van-toast id="custom-selector" />
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+
+
+<view wx:else class="addr">
+  <view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+    <view class='nav-title'>
+      <text class="fs15">地址列表</text>
+      <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+        <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="line" style='padding-top:{{nav.navHeight}}px'></view>
+  <view wx:if="{{ addrs.length>0 }}">
+    <scroll-view style="height:{{ wx.windowHeight-nav.navHeight }}px;" scroll-y="true" bindscrolltolower="fnlist">
+      <view class="line"></view>
+      <view class="list" wx:for="{{ addrs }}" wx:key="index">
+          <view class="addr-li rds">
+              <view data-id="{{ item.id }}" bindtap="setMrAddr">
+                <view class="fs16">
+                    <text class="bold name num1">{{ item.receiver }}</text>
+                    <text class="tel num1">{{ item.phone }}</text>
+                </view>
+                <view class="clear xix xixb">
+                    <text class="left fs10 mr" wx:if="{{ item.isDefault }}">默认</text>
+                    <text class="fs13 hui">{{ item.state+item.city+item.district+item.address }}</text>
+                </view>
+              </view>
+              <view class="make">
+                  <text class="delete fs13 hui" bindtap="deleteAddr" data-id="{{ item.id }}">删除</text>
+                  
+                  <wxs module="addr">
+                    var addrString= function (value) {
+                      return JSON.stringify(value)
+                    }
+                    module.exports.addrString=addrString;
+                  </wxs>
+                  <navigator style="display:inline-block;" url="/pages/User/pages/addrEdit/index?item={{ addr.addrString(item) }}" hover-class="none">
+                    <text class="edit fs13 hui">编辑</text>
+                  </navigator>
+              </view>
+          </view>
+          <view class="line"></view>
+      </view>
+      <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+      </scroll-view>
+  </view>
+
+  <view wx:else>
+      <view class="fs14 hui" style="text-align:center;padding-top:200rpx;">
+          <image style="width:300rpx;height:222rpx;margin:30rpx auto;" src="/images/error.png" alt="" />
+          暂无收货地址
+      </view>
+  </view>
+  
+  <navigator class="footer ai" style="padding-bottom:{{isIphoneFullScreen?'50rpx':'0'}};height:{{isIphoneFullScreen?'160':'120'}}rpx;" url="/pages/User/pages/addrEdit/index" hover-class="none">
+    <button class="btn fs14">添加收货地址</button>
+  </navigator>
+ 
+</view>

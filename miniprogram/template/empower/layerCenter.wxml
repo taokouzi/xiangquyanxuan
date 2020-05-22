@@ -1,0 +1,12 @@
+<!-- 授权按钮弹窗（居中弹出） -->
+
+<template name="empower">
+  <view class='opacity'></view>
+  <view class='layer'>
+    <!-- <view class="fs14">欢迎进入享趣严选商城</view> -->
+    <button class="fs15" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>授权用户信息</button>
+    <button class="fs15 phone" open-type='getPhoneNumber' bindgetphonenumber='getPhoneNumber'>授权手机号</button>
+    <button class="fs15 pay" type="default" bindtap="minproPay">模拟支付</button>
+    <button class="fs15 msg" type="default" show-message-card="true" open-type="contact">客服消息</button>
+  </view>
+</template>

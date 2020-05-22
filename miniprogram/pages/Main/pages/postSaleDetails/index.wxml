@@ -1,0 +1,150 @@
+<van-toast id="custom-selector" />
+<import src ="/template/cardList/leftRight.wxml"/>
+<import src ="/template/step/leftRight.wxml"/>
+
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">售后详情</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+        <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+        <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+
+<view wx:else style="padding-bottom:160rpx;margin-top:{{nav.navHeight}}px">
+  <view>   
+      <view class="line"></view>
+      <view class="rds postSaleDetails">
+        <template is="stepLeftRight" data="{{nowStep}}"/>
+      </view>
+      
+      <view class="line"></view>
+
+      <!-- 当前进度：已受理 -->
+      <view wx:if="{{ nowStep==0 && datas.serviceTypeId!=1 }}">
+          <view class="rds postSale">
+              <view class="li ai">
+                  <span class="fs14">申请退款金额</span>
+                  <span class="img fs14 hui n"><i class="fs12">￥</i>{{ datas.applyRefundAmount }}</span>
+              </view>
+          </view>
+      </view>
+
+      <!-- 当前进度：处理中 -->
+      <view wx:elif="{{ nowStep==1 }}">
+          <view class="rds postSale" wx:if="{{ datas.serviceTypeId==2 || datas.serviceTypeId==3 }}">
+              <view class="li ai" style="padding-bottom:0;" wx:if="{{datas.status != -1}}">
+                  <span class="fs14">平台退款金额</span>
+                  <span class="img fs14 n"><i class="fs12">￥</i>{{ datas.refundAmount }}</span>
+              </view>
+              <view class="fs12 hui" style="padding:24rpx;padding-top:12rpx;">
+                  {{  datas.status == 2 ? '*平台会在收到退货后完成退款' : 
+                      datas.status == 3 ? '*平台会在收到退货后完成退款' : 
+                      datas.status == 4 ? '*平台处理退款中' : 
+                      datas.status == 7 ? '*已完成退款，请查看您的付款账户' : 
+                      datas.status == -1 ? '中途关闭' : '其他' }}
+              </view>
+          </view>
+          <view class="line" wx:if="{{datas.serviceTypeId==2 || datas.serviceTypeId==3}}"></view>
+          <!-- 售后类型为“退款退货时才显示” -->
+          <view class="rds postSale" wx:if="{{datas.serviceTypeId==2 && datas.status!=4}}">
+              <view class="fs12 hui xix xixb" style="padding:24rpx;padding-top:12rpx;line-height:36rpx;">您的退货申请已通过，请按商家退货地址在7天内退回，并填写正确的退货单号，避免退款因超时关闭。请选择普通快递，不要使用邮政小包、到付件。祝您生活愉快！~</view>
+              <view class="li xix xixb" wx:if="{{ datas.serviceTypeId==2 && datas.status==2 }}">
+                  <view class="fs14">平台同意需要退货</view>
+                  <view class="fs12 hui" style="padding-top:12rpx;">请及时退货  剩余{{ time.d }}天{{ time.h }}时{{ time.m }}分{{ time.s }}秒</view>
+              </view>
+              <view class="li">
+                  <view class="fs12 hui">退货地址</view>
+                  <view style="padding-top:12rpx;">
+                      <view class="fs14">{{ datas.refundAddress  }}</view>
+                      <view class="fs14">{{ datas.refundPeople }}<span class="n" style="padding-left:24rpx;">{{ datas.refundPhone }}</span></view>
+                  </view>
+              </view>
+          </view>
+      </view>
+
+      <!-- 当前进度：已结束 -->
+      <view wx:elif="{{ nowStep==2 }}">
+          <view class="rds postSale" wx:if="{{ datas.serviceTypeId!=1 }}">
+              <view class="li ai" style="padding-bottom:0;">
+                  <span class="fs14">平台退款金额</span>
+                  <span class="img fs14 n"><i class="fs12">￥</i>{{ datas.refundAmount }}</span>
+              </view>
+              <view class="fs12 hui" style="padding:24rpx;padding-top:12rpx;">*已完成退款，请查看您的付款账户</view>
+          </view>
+      </view>
+      
+      <view class="line" wx:if="{{nowStep==2}}"></view>
+
+      <view class="order rds" style="padding:24rpx;padding-bottom:0;">
+          <view class="clear fs13">
+              <span class="fs13 hui left">所购商品</span>
+          </view>
+
+          <navigator url="/pages/Main/pages/details/index?id={{or.commodityId}}" hover-class="none">
+            <template is="order" data="{{ title: or.title, firstPic: or.firstPic, buyPrice: or.price*or.num-(or.redPacket||0), specsName: or.specsName, buyNum: -1 }}"/>
+          </navigator>
+            
+      </view>
+      <view class="line"></view>
+
+
+      <view class="rds postSale posetSaleList" style="padding:12rpx 0;">
+          <view class="li ai">
+              <span class="fs13 hui">售后单号</span>
+              <view class="fs13">{{ datas.id }}</view>
+          </view>
+          <view class="li ai">
+              <span class="fs13 hui">订单编号</span>
+              <view class="fs13">{{ datas.orderId }}</view>
+          </view>
+          <view class="li ai">
+              <span class="fs13 hui">售后类型</span>
+              <view class="fs13">{{ datas.serviceTypeStr }}</view>
+          </view>
+          <view class="li ai" wx:if="{{datas.contactPhone}}">
+              <span class="fs13 hui">联系电话</span>
+              <view class="fs13">{{ datas.contactPhone }}</view>
+          </view>
+
+          <!-- 状态为“已受理”时才显示 v-if=" nowStep==0 || nowStep==1 "-->
+          <view>
+              <view class="li ai">
+                  <span class="fs13 hui">申请原因</span>
+                  <view class="fs13">{{ datas.serviceTypeReasonStr }}</view>
+              </view>
+              <view class="li ai">
+                  <span class="fs13 hui">原因说明</span>
+                  <view class="fs13">{{ datas.contentRecording || '暂无' }}</view>
+              </view>
+              <view class="li">
+                  <span class="fs13 hui">照片描述</span>
+                  <view class="fs13 miaoshu">
+                      <span wx:if="{{ proof.length == 0 }}">暂无</span>
+                      <view wx:else>
+                        <image class="sh-img" mode="scaleToFill" wx:for="{{proof}}" wx:key="{{index}}" src="{{item}}" alt=""></image>
+                      </view>
+                  </view>
+              </view>
+          </view>
+      </view>
+
+      <!-- 当前状态为：已受理 -->
+      <view class="footer ai nowStep0" style="padding-bottom:{{isIphoneFullScreen?'50rpx':'0'}};height:{{isIphoneFullScreen?'160':'120'}}rpx;" wx:if="{{nowStep==0}}">
+          <button class="btn fs14" data-id="{{datas.id}}" bindtap="cancelOrder">撤销申请</button>
+      </view>
+
+      <!-- 当前状态为：处理中 -->
+      <view class="footer ab nowStep1 clear" style="padding-bottom:{{isIphoneFullScreen?'50rpx':'0'}};height:{{isIphoneFullScreen?'160':'120'}}rpx;" wx:if="{{ nowStep==1 && datas.serviceTypeId==2 && datas.status==2 }}">
+          <button class="btn btn1 fs14" data-id="{{datas.id}}" bindtap="cancelOrder" style="width:{{ hideEdit ? '702rpx' : '280rpx' }}">撤销申请</button>
+          <button class="btn btn2 fs14" bindtap="goWriteOrder" wx:if="{{ !hideEdit }}">填写物流单号</button>
+      </view>
+  </view>
+  
+</view>

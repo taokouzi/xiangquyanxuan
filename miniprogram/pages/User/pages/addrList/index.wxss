@@ -1,0 +1,61 @@
+/* miniprogram/pages/test/index.wxss */
+.addr{
+    padding-bottom: 140rpx;
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+.addr .list:last-child .line{
+    display: none !important;
+}
+.footer{
+    height: 120rpx;
+    background: #ffffff;
+    position: fixed;
+    z-index: 9;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding:0 24rpx;
+    box-sizing: border-box;
+}
+.addr-li{
+    padding: 30rpx 3vw;
+}
+.name{
+    display: inline-block;
+    max-width: 30vw;
+}
+.tel{
+    display: inline-block;
+    max-width: 40vw;
+    padding-left: 30rpx;
+}
+.mr{
+    padding:0 10rpx;
+    background: #0076FF;
+    border-radius: 20rpx;
+    color: #ffffff;
+    margin-right: 16rpx;
+    margin-top: 6rpx;
+}
+.make{
+    text-align: right;
+}
+.make text{
+    display: inline-block;
+    height: 44rpx;
+    line-height: 44rpx;
+    border:1px solid #eeeeee;
+    padding: 0 30rpx;
+    border-radius: 22rpx;
+}
+.make text:last-child{
+    margin-left: 20rpx;
+}
+.xixb{
+    padding-bottom: 20rpx;
+    margin-bottom: 20rpx;
+}
+.btn{
+    width: 100%;
+}

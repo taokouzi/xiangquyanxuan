@@ -1,0 +1,30 @@
+page{
+  background: #ffffff;
+}
+.finish{
+  padding:100rpx 24rpx;
+  padding-top:200rpx; 
+  text-align: center;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+}
+.alert-btn{
+  width: 500rpx;
+  margin-top: 200rpx !important;
+  margin-bottom: 20rpx !important;
+}
+.finish image{
+  width: 160rpx;
+  height: 160rpx;
+  margin:100rpx auto 40rpx auto;
+}
+.btn-ok{
+  background: #FF4900;
+}
+.btn-repeat{
+  background: #FFC300;
+}
+.btn-err{
+  background: #bfbfbf;
+}

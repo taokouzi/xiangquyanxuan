@@ -1,0 +1,88 @@
+<van-toast id="custom-selector" />
+<scroll-view class="scroll" style="height:100vh;" scroll-y="true" bindscrolltolower="searchScrollLower">
+<view class="nav" style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15">搜索</text>
+    <view class="jiaonang aj" style="left:0;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;background:transparent;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;margin-left:-12rpx;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px;opacity:0;"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;opacity:0;"></view>
+    </view>
+  </view>
+</view>
+
+
+<view class="box-chart" style='padding-top:{{nav.navHeight}}px'>
+  <view class="search-box">
+    <view class="ai rds search">
+      <image style="width:44rpx;height:44rpx;" src="/images/search.png"></image>
+      <!-- 搜索 我的客户 -->
+      <input wx:if="{{ urlFrom == 'myCustom' }}" bindinput="fnCustomList" class="fs14" value="{{userName}}" auto-focus placeholder="搜索账号名称"/>
+      <!-- 搜索 我的达人或团长 -->
+      <input wx:else bindinput="fnTeamList" class="fs14" value="{{userName}}" auto-focus placeholder="搜索账号名称"/>
+    </view>
+  </view>
+
+  
+  <block wx:if="{{ urlFrom == 'myCustom' }}">
+    <view class="t-list-box" wx:if="{{list.length>0}}">
+      <block wx:for="{{list}}" wx:key="index">
+      <view class="ab t-list rds">
+        <view class="ai">
+          <image class="rds" style="border-radius: 50%;" src="{{ item.headImg || '/images/head.png' }}"></image>
+          <view>
+            <view class="fs14 ai bold">
+              <text class="num1" style="max-width:35vw;display:inline-block;">{{ item.userName || '匿名用户' }}</text>
+            </view>
+            <view class="fs12 hui" style="margin-top:20rpx;">
+              累计节省 <text class="red bold fs10">￥<text class="fs14 n">{{ item.saveAmount }}</text> </text>
+            </view>
+          </view>
+        </view>
+        <view style="text-align:right;">
+          <view class="fs12 hui">累计贡献返利</view>
+          <text class="red bold fs12">￥<text class="fs16 n">{{ item.contribution }}</text> </text>
+        </view>
+      </view>
+      </block>
+      <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+    </view>
+    <view wx:else>
+        <view class="fs14 hui" style="text-align:center;padding-top:200rpx;">
+            <image style="width:300rpx;height:222rpx;margin:30rpx auto;" src="/images/notorder.png" alt="" />
+            暂无客户数据
+        </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="t-list-box" wx:if="{{list.length>0}}">
+      <block wx:for="{{list}}">
+      <navigator class="ab t-list rds" url="/pages/User/pages/teamInfo/index?type={{type}}&id={{ item.id }}">
+        <view class="ai">
+          <image class="rds" style="border-radius: 50%;" src="{{ item.headImg || '/images/head.png' }}"></image>
+          <view>
+            <view class="fs14 ai bold">
+              <text class="num1" style="max-width:35vw;display:inline-block;">{{ item.userName || '匿名用户' }}</text>
+              <text class="red" style="margin-left:20rpx;">{{ item.level || '-' }}</text>
+            </view>
+            <view class="fs12 hui" style="padding:16rpx 0;">授权时间 {{ item.talentRegisterDate || '-' }}</view>
+            <view class="fs12 hui">备注 {{ item.remark || '-' }}</view>
+          </view>
+        </view>
+        <view style="text-align:right;">
+          <view class="fs10 hui">贡献返利</view>
+          <text class="red bold fs12">￥<text class="fs16 n">{{ item.contribution }}</text> </text>
+        </view>
+      </navigator>
+      </block>
+      <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+    </view>
+    <view wx:else>
+        <view class="fs14 hui" style="text-align:center;padding-top:200rpx;">
+            <image style="width:300rpx;height:222rpx;margin:30rpx auto;" src="/images/notorder.png" alt="" />
+            暂无数据
+        </view>
+    </view>
+  </block>
+</view>
+</scroll-view>

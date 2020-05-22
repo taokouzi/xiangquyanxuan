@@ -1,0 +1,26 @@
+<!--miniprogram/pages/Main/pages/authorize/index.wxml-->
+<van-toast id="custom-selector" />
+<image class="auth-bg" mode="aspectFill" src="/images/sq.png" />
+
+<view class="auth">
+
+<!-- <view class="fs30 num1">欢迎来到享趣严选商城</view> -->
+<!-- <view class="fs10 hui" style="margin-top:20rpx;">为确保您能正常访问商城，请完成以下授权，感谢您的配合！</view> -->
+
+<view class="btns">
+  <view class="fs15 bold" style="color:#333;">温馨提示，这个很重要哦~</view>
+  <view class="fs13 hui" wx:if="{{btnType==1}}" style="margin-top:30rpx;">为确保您能正常访问商城，请完成以下授权，感谢您的配合</view>
+  <view class="fs13 hui" wx:else style="margin-top:30rpx;">亲，绑定手机号后达人及以上身份才可以享受返利补贴，提现等更多小程序的服务哦</view>
+  <view class="sq-xian"></view>
+  
+  <view class="btn2">
+    <view>
+      <button wx:if="{{btnType==1}}" class="fs15 bold" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>授权登录</button>
+    </view>
+    <view class="phone {{btnType==2?'active':''}}">
+    <button class="fs15 bold" open-type='getPhoneNumber' bindgetphonenumber='getPhoneNumber'>绑定手机号</button> 
+    </view>
+    
+  </view>
+</view>
+</view>

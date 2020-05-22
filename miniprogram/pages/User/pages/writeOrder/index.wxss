@@ -1,0 +1,76 @@
+.m-top{
+        height: 22vw;
+        background: #FFC800;
+        color: #ffffff;
+        position: relative;
+    }
+    .m-top>view{
+        padding-left: 24rpx;
+    }
+
+    .share-box{
+        padding-bottom: 24rpx;
+    }
+    .footer{
+        height: 120rpx;
+        background: #ffffff;
+        position: fixed;
+        z-index: 9;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding:0 24rpx;
+    }
+    .btn{
+        width: 100%;
+    }
+    .postSale .li{
+        position: relative;
+        padding: 24rpx;
+    }
+    .postSale .li .img{
+        position: absolute;
+        right: 24rpx;
+    }
+    .postSale .li .ai{
+        position: absolute;
+        right: 24rpx;
+    }
+    .shuo-ming{
+        display: flex;
+        position: relative;
+    }
+    .shuo-ming .span{
+        width: 130rpx;
+        position: relative;
+        top: -44rpx;
+    }
+    textarea{
+        flex: 1;
+        height: 140rpx;
+        margin:0 auto;
+        display:block;
+        background: #ffffff;
+        border-color: #ffffff;
+        border-radius: 2rpx;
+    }
+    .zishu{
+        position: absolute;
+        right: 24rpx;
+        bottom: 20rpx;
+        background: #ffffff;
+        padding-left: 10rpx;
+        border-radius: 4rpx;
+    }
+    .postSale2 .li{
+        display: flex;
+    }
+    .postSale2 span.fs14{
+        width: 160rpx;
+    }
+    .postSale2 label{
+        flex: 1;
+    }
+    .postSale2 input{
+        width: 70%;
+    }

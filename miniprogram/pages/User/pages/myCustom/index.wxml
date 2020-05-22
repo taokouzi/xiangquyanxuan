@@ -1,0 +1,71 @@
+<van-toast id="custom-selector" />
+<scroll-view class="index" style="height:100vh;" scroll-y="true" bindscrolltolower="searchScrollLower">
+<!-- <view class='nav bg-red' style='height:{{nav.navHeight}}px;background:transparent;'> -->
+<view class="nav" style='height:{{nav.navHeight}}px;background:linear-gradient(#FF6B13, #FF690E);'>
+  <view class='nav-title'>
+    <text class="fs15">我的客户</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+
+<image style="width:100vw;height:80vw;position:absolute;top:0;left:0;" src="/images/bg-team.png"></image>
+
+<view class="box-chart" style='padding-top:{{nav.navHeight}}px;z-index:2;position:relative;'>
+  <view>
+    <navigator url="/pages/User/pages/searchTeamList/index?comfrom=myCustom" class="ab rds search">
+      <text class="fs12 ddd">搜索账号名称</text>
+      <image style="width:44rpx;height:44rpx;" src="/images/search2.png"></image>
+    </navigator>
+    
+    <view class="card fff ab">
+      <view>
+        <view class="fs30 n">{{ num.totalIncome || 0 }}</view>
+        <view class="fs11 ddd">返利总收益（元）</view>
+      </view>
+      <view>
+        <view class="fs30 n">{{ num.members || 0 }}</view>
+        <view class="fs11 ddd">客户人数（人）</view>
+      </view>
+      <view>
+        <view class="fs30 n">{{ num.totalContribution || 0 }}</view>
+        <view class="fs11 ddd">帮助客户节省总金额（元）</view>
+      </view>
+    </view>
+  </view>
+  
+  
+  <view class="t-list-box" wx:if="{{list.length>0}}">
+    <block wx:for="{{list}}" wx:key="index">
+    <view class="ab t-list rds">
+      <view class="ai">
+        <image class="rds" style="border-radius: 50%;" src="{{ item.headImg || '/images/head.png' }}"></image>
+        <view>
+          <view class="fs14 ai bold">
+            <text class="num1" style="max-width:35vw;display:inline-block;">{{ item.userName || '匿名用户' }}</text>
+          </view>
+          <view class="fs12 hui" style="margin-top:20rpx;">
+            累计节省 <text class="red bold fs10">￥<text class="fs14 n">{{ item.saveAmount }}</text> </text>
+          </view>
+        </view>
+      </view>
+      <view style="text-align:right;">
+        <view class="fs12 hui">累计贡献返利</view>
+        <text class="red bold fs12">￥<text class="fs16 n">{{ item.contribution }}</text> </text>
+      </view>
+    </view>
+    </block>
+    <view class="fs12 hui di" wx:if="{{ showDixian==1 }}">哎呀，底儿都被你看光啦~</view>
+  </view>
+  <view wx:else>
+      <view class="fs14 hui" style="text-align:center;padding-top:200rpx;">
+          <image style="width:300rpx;height:222rpx;margin:30rpx auto;" src="/images/notorder.png" alt="" />
+          暂无客户数据
+      </view>
+  </view>
+
+</view>
+</scroll-view>

@@ -1,0 +1,245 @@
+<van-toast id="custom-selector" />
+
+<import src ="/template/cardList/leftRight.wxml"/>
+
+<view class='nav bg-red' style='height:{{nav.navHeight}}px;background:transparent;'>
+  <view class='nav-title'>
+    <text class="fs15"></text>
+  </view>
+</view>
+<view class="skLoading" wx:if="{{ isSK }}">
+  <span class="ivu"></span>
+</view>
+<image style="width:750rpx;height:450rpx;position:absolute;top:0;left:0;" src="/images/bg-me.png"></image>
+<view class="container me">
+  <view class="m-top" style="height:40vw;margin-top:{{nav.navHeight*.7}}px;">
+    <view class="ai">
+        <button open-type='getUserInfo' wx:if="{{userState==0}}" bindgetuserinfo="fnGetUserInfo" class="not-btn ai" style="margin:0;background:transparent;">
+            <image class="header" src="/images/head.png" alt="" />
+            <view style="text-align:left;">
+                <view class="fs16 num1 fff">点击登录</view>
+                <!-- <span class="fs11 num1 gx">绑定手机号</span> -->
+            </view>
+        </button>
+        <view wx:else class="ai">
+            <navigator url="/pages/User/pages/myinfo/index" hover-class="none">
+                <image class="header" src="{{user.headImg}}" alt=""></image>
+            </navigator>
+            <view style="text-align:left;">
+                <view class="ai" style="padding-bottom:20rpx;">
+                  <view class="fs16 num1 fff" style="max-width:300rpx;">{{ user.userName || '用户昵称' }}</view>
+                  <button open-type='getUserInfo' bindgetuserinfo="alignUserInfo" class="not-btn ai" style="margin:0;background:transparent;">
+                    <image src="/images/gx-me.png" style="width:20rpx;height:20rpx;margin-left:24rpx;"></image>
+                  </button>
+                </view>
+                <view class="num1 gx">
+                  <view class=" ai">
+                    <image src="/images/sf.png" style="width:26rpx;height:26rpx;background:#fff;border-radius:50%;margin-right:8rpx;"></image>
+                    <text class="fs10" style="font-size:18rpx;">{{ userTypes[user.userType].val || '' }}</text>
+                  </view>
+                </view>
+                <!-- <span class="fs10 num1 gx">{{ userTypes[user.userType].val || '' }}</span> -->
+            </view>
+        </view>
+    </view>
+    
+    <!-- 达人团长才显示 -->
+    <!-- <image wx:if="{{user.userType==2||user.userType==4}}" class="ewmshare" bindtap="fnshareBtn" src="/images/ewmshare.png" alt=""></image> -->
+</view>
+
+<view style="padding:0 24rpx">
+<view class="me-box">
+    <!-- 省钱金额 -->
+    <view class="shengq" style="margin-bottom:24rpx;">
+      <image src="/images/shengq.png"></image>
+      <view class="ab" style="position:relative;z-index:2;">
+        <!-- <view>
+          <view class="fs12" style="height:30rpx;">已为您省钱</view>
+          <span class="fs8 hui">计算规则：省钱金额=商品原价-商品售价</span>
+        </view> -->
+        <view class="fs14">已为您省钱</view>
+        <view class="fs26 n">
+          <text class="fs12">￥</text>{{ profit.saveTotal || 0 }}
+        </view>
+      </view>
+    </view>
+    
+    <view class="me rds animated fadeInDwon" wx:if="{{user.userType==1||user.userType==2||user.userType==4}}">
+        <navigator url="/pages/User/pages/myprofit/index" class="clear m-title ai" hover-class="none">
+            <span class="left fs16">我的收益</span>
+            <view class="ai right shouyi hui">
+                <span class="fs12">查看收益</span>
+                <image style="width:16rpx;height:16rpx;margin-left:16rpx;" src="/images/you.png" alt=""></image>
+            </view>
+        </navigator>  
+        <wxs module="priceNum">
+          var numberToFix= function (value) {
+            return value.toFixed(2)
+          }
+          module.exports.numberToFix=numberToFix;
+        </wxs>
+        <view class="clear" class="{{user.userType==2?'li4':user.userType==4?'li5':'li3'}}">
+            <view class="sy-li" wx:if="{{ user.userType == 1 }}">
+                <view class="fs20 bold num1 n"><i class="fs12">￥</i>{{ priceNum.numberToFix((profit.directIncome || 0)+(profit.headIncome || 0)) }}</view>
+                <view class="fs11 hui num1">总收益</view>
+            </view>
+            <view class="sy-li">
+                <view class="fs20 bold num1 n"><i class="fs12">￥</i>{{ profit.canWithdraw || 0 }}</view>
+                <view class="fs11 hui num1">可提现</view>
+            </view>
+            <view class="sy-li">
+                <view class="fs20 bold num1 n"><i class="fs12">￥</i>{{ profit.hasWithdraw || 0 }}</view>
+                <view class="fs11 hui num1">已提现</view>
+            </view>
+            
+            <view class="sy-li" wx:if="{{user.userType==2||user.userType==4}}">
+                <view class="fs20 bold num1 n"><i class="fs12">￥</i>{{ profit.directIncome || 0 }}</view>
+                <view class="fs11 hui num1">直接收益</view>
+            </view>
+
+            <!-- bindtap="toggleShowRedTips" -->
+            <view class="sy-li" wx:if="{{user.userType==2||user.userType==4}}" data-fansFlag="{{profit.fansFlag}}">
+                <view class="fs20 bold num1 n">
+                    <span class="n" style="position:relative;"><i class="fs12">￥</i>{{ profit.headIncome || 0 }}
+                    <!-- <image wx:if="{{!profit.isFullTwenty}}" class="warning" style="width:16rpx;height:16rpx;" src="/images/warning.png"/> -->
+                    </span>
+                </view>
+                <view class="fs11 hui num1">组团收益</view>
+            </view>
+            <view class="sy-li" wx:if="{{user.userType==4}}">
+                <view class="fs20 bold num1 n"><i class="fs12">￥</i>{{ profit.topIncome || 0 }}</view>
+                <view class="fs11 hui num1">推广收益</view>
+            </view>
+        </view>
+    </view>
+
+    <view wx:if="{{showRedTips}}" class="fs12 red-tips-box">
+        <view class="aj red-tips fs12" style="position:relative;height:68rpx;line-height:68rpx;">团队人数需达到20人时，才能领取组团收益
+        <!-- <image bindtap="toggleShowRedTips" style="width:20rpx;height:20rpx;position: absolute;right:24rpx;top:24rpx;" src="/images/close2.png" alt="" /> -->
+        </view>
+    </view>
+
+
+    <view class="line" wx:if="{{user.userType==1||user.userType==2||user.userType==4}}"></view>
+    <view wx:if="!isSK">
+        <view class="rds animated fadeInUp2 c220" wx:if="{{user.userType==1||user.userType==2||user.userType==4}}">
+            <view class="clear m-title ai" style="padding-bottom:10rpx;">
+                <span class="left fs16">常用功能</span>
+            </view>
+
+            <navigator url="/pages/User/pages/addrList/index" class="li ai" hover-class="none">
+                <image class="icon" src="/images/weiz.png" alt=""></image>
+                <span class="fs11 hui">我的地址</span>
+            </navigator>
+
+            <navigator url="/pages/User/pages/news/index" class="li ai" hover-class="none">
+                <view class="icon" style="position:relative;">
+                    <image class="icon" src="/images/xiaox.png" alt=""></image>
+                    <span class="dian"></span>
+                </view>
+                <span class="fs11 hui">系统消息</span>
+            </navigator>
+
+            <navigator url="/pages/User/pages/myinfo/index" class="li ai" hover-class="none">
+                <image class="icon" src="/images/set.png" alt=""></image>
+                <span class="fs11 hui">账户设置</span>
+            </navigator>
+
+            <view bindtap="fnKefu" class="li ai">
+                <image class="icon" src="/images/tel.png" alt=""></image>
+                <span class="fs11 hui">联系客服</span>
+            </view>
+
+            <navigator url="/pages/User/pages/myCustom/index" wx:if="{{user.userType==1 || user.userType==2||user.userType==4}}" class="li ai" hover-class="none">
+                <image class="icon" src="/images/guanxi.png" alt=""></image>
+                <span class="fs11 hui">我的客户</span>
+            </navigator>
+
+            <navigator url="/pages/User/pages/teamList/index?type=tz" wx:if="{{user.userType==2||user.userType==4}}" class="li ai" hover-class="none">
+                <image class="icon" src="/images/team-da.png" alt=""></image>
+                <span class="fs11 hui">直属达人</span>
+            </navigator>
+
+            <!-- 推广员 -->
+            <navigator url="/pages/User/pages/teamList/index?type=ddr" wx:if="{{user.userType==4}}" class="li ai" hover-class="none">
+                <image class="icon" src="/images/team-tuan.png" alt=""></image>
+                <span class="fs11 hui">直属团长</span>
+            </navigator>
+
+            <navigator wx:if="{{user.userType==2||user.userType==4}}" url="/pages/User/pages/syEcharts/index"  class="li ai" hover-class="none">
+                <image class="icon" src="/images/channel.png" alt=""></image>
+                <span class="fs11 hui">收益分析</span>
+            </navigator>
+
+            <navigator url="/pages/Other/pages/QApage/index" class="li ai" hover-class="none">
+                <image class="icon" src="/images/gongl.png" alt=""></image>
+                <span class="fs11 hui">达人秘籍</span>
+            </navigator>
+            
+        </view>
+        
+        <view wx:else class="rds animated fadeInUp2">
+          
+          <button open-type='getUserInfo' wx:if="{{userState==0}}" bindgetuserinfo="fnGetUserInfo" class="not-btn li ai xix xixb" style="margin:0;background:transparent;">
+            <image class="icon" src="/images/weiz.png" alt=""></image>
+            <span class="fs14">我的地址</span>
+            <image style="width:16rpx;height:16rpx;position:absolute;right:24rpx;" src="/images/you.png" alt=""></image>
+          </button> 
+          <navigator wx:else url="/pages/User/pages/addrList/index"  class="li ai xix xixb" hover-class="none">
+              <image class="icon" src="/images/weiz.png" alt=""></image>
+              <span class="fs14">我的地址</span>
+              <image style="width:16rpx;height:16rpx;position:absolute;right:24rpx;" src="/images/you.png" alt=""></image>
+          </navigator>
+
+
+          <button open-type='getUserInfo' wx:if="{{userState==0}}" bindgetuserinfo="fnGetUserInfo" class="not-btn li ai xix xixb" style="margin:0;background:transparent;">
+            <image class="icon" src="/images/xiaox.png" alt=""></image>
+            <span class="fs14">系统消息</span>
+            <image style="width:16rpx;height:16rpx;position:absolute;right:24rpx;" src="/images/you.png" alt=""></image>
+          </button> 
+          <navigator wx:else url="/pages/User/pages/news/index" class="li ai xix xixb" hover-class="none">
+              <image class="icon" src="/images/xiaox.png" alt=""></image>
+              <span class="fs14">系统消息</span>
+              <image style="width:16rpx;height:16rpx;position:absolute;right:24rpx;" src="/images/you.png" alt=""></image>
+          </navigator>
+
+
+          <button open-type='getUserInfo' wx:if="{{userState==0}}" bindgetuserinfo="fnGetUserInfo" class="not-btn li ai xix xixb" style="margin:0;background:transparent;">
+            <image class="icon" src="/images/set.png" alt=""></image>
+            <span class="fs14">账户设置</span>
+            <image style="width:16rpx;height:16rpx;position:absolute;right:24rpx;" src="/images/you.png" alt=""></image>
+          </button> 
+          <navigator wx:else url="/pages/User/pages/myinfo/index" class="li ai xix xixb" hover-class="none">
+              <image class="icon" src="/images/set.png" alt=""></image>
+              <span class="fs14">账户设置</span>
+              <image style="width:16rpx;height:16rpx;position:absolute;right:24rpx;" src="/images/you.png" alt=""></image>
+          </navigator>
+
+
+          <view class="li ai" bindtap="fnKefu">
+              <image class="icon" src="/images/tel.png" alt=""></image>
+              <span class="fs14">联系客服</span>
+              <image style="width:16rpx;height:16rpx;position:absolute;right:24rpx;" src="/images/you.png" alt=""></image>
+          </view>
+        </view>
+    </view>
+</view>
+</view>
+</view> 
+
+<!-- 客服 -->
+<van-popup class="kf-box" show="{{ showKefu }}" bind:close="onClose">
+  <view class="fs14 kf-text hui">选择客服方式</view>
+  <view class="kefu ai">
+    <button class="aj" open-type="contact">
+      <image src="/images/shareBtn.png"></image>
+    </button>
+    <view class="fs10 hui">或</view>
+    <view class="aj" data-tel='{{kf}}' bindtap="fnphone">
+      <image src="/images/dhkf.png"></image>
+    </view>
+  </view>
+  <view class="fs10 hui" style="text-align:center;padding-bottom:24rpx;position:relative;top:-12rpx;">客服服务时间：09:00-21:00 周一至周日</view>
+  <image bindtap="onClose" style="width:16rpx;height:16rpx;box-sizing:content-box;position:absolute;padding:24rpx;top:0;right:0;" src="/images/close2.png"></image>
+</van-popup>
+

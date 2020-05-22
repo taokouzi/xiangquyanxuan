@@ -1,0 +1,63 @@
+@import "/template/cardList/leftRight.wxss";
+@import "/template/step/leftRight.wxss";
+.footer{
+    height: 120rpx;
+    background: #ffffff;
+    position: fixed;
+    z-index: 9;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding:0 24rpx;
+}
+.nowStep0 .btn{
+    width: 702rpx;
+}
+.nowStep1 .btn1{
+    width: 280rpx;
+    background: transparent;
+    color: #FF4900;
+    border:1px solid #FF4900;
+    line-height: 84rpx;
+}
+.nowStep1 .btn2{
+    width: 400rpx;
+    margin-left: 21rpx;
+}
+.postSale .li{
+    position: relative;
+    padding: 24rpx;
+}
+.postSale .li .img{
+    position: absolute;
+    right: 24rpx;
+}
+.postSale .li .ai{
+    position: absolute;
+    right: 24rpx;
+}
+.posetSaleList .li{
+    padding: 12rpx 24rpx;
+    display: flex;
+}
+.posetSaleList .li .hui{
+  width: 120rpx !important;
+}
+.posetSaleList .li view{
+  flex: 1;
+}
+.miaoshu img{
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    object-fit: cover;
+}
+.sh-img{
+  margin-right:10rpx;
+  width:160rpx;
+  height:160rpx;
+  display:inline-block;
+}
+
+
+

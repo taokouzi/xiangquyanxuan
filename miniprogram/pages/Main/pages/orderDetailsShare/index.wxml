@@ -1,0 +1,84 @@
+<van-toast id="custom-selector" />
+
+<import src ="/template/cardList/leftRight.wxml"/>
+
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title aj'>
+    <text class="num1" style="display:inline-block;max-width:160rpx;">{{or.userName}}</text>
+    <text class="fs15">{{ or.userName ? '的' : '' }}订单</text>
+  </view>
+</view>
+
+<wxs module="fn">
+  var timestampToTime= function (timestamp) {
+    var date = getDate(timestamp),
+    Y = date.getFullYear() + '-',
+    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
+    D = (date.getDate() < 10?'0'+date.getDate():date.getDate()) + ' ',
+    h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':',
+    m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':',
+    s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
+  }
+  var abs = function(val){
+
+    return Math.abs(val)
+  }
+  module.exports.timestampToTime=timestampToTime;
+  module.exports.abs=abs;
+</wxs>
+
+<view class="box" style='padding-top:{{nav.navHeight}}px'>
+  <view class="top">
+    <view class="fs15 bold">分享晒单</view>
+    <view style="padding:20rpx 0;">
+      <text>订单单号：</text>
+      <text>{{ or.id }}</text>
+    </view>
+    <view>
+      <text>下单时间：</text>
+      <text>{{ or.payTime ? fn.timestampToTime(or.payTime) : '' }}</text>
+    </view>
+  </view>
+
+  <view class="line"></view>
+  
+  <view class="ab" style="padding:24rpx;">
+    <view class="ai">
+      <image style="width:40rpx;height:40rpx;border-radius:50%;margin-right:12rpx;" src="{{ or.headImg || '/images/head.png' }}"></image>
+      <view class="num1" style="max-width:200rpx;">{{ or.userName || '匿名用户' }}</view>
+    </view>
+    <view>此单已省： <text class="red n"><text class="fs12">￥</text>{{ fn.abs(or.saveAmount||0) }}</text></view>
+  </view>
+
+  <view class="line"></view>
+
+  <view style="margin:20rpx 0;padding:24rpx;position:relative;">
+    <view class="fs14">收货人：{{ or.maskedConsignee }}</view>
+    <view style="padding:30rpx 0;">电话：{{ or.maskedConsigneeMobile }}</view>
+    <view>地址：{{ or.receiptArea }}{{ or.maskedAddressInfo }}</view>
+    <image class="xdok" src="/images/xdok.png"></image>
+  </view>
+
+  <view class="line"></view>
+
+  <view style="padding:24rpx;">
+    <view class="fs15 bold">订单商品</view>
+    <navigator url="/pages/Main/pages/details/index?id={{or.commodityId}}&shareId={{shareId}}&type=2&time={{time}}&com=orderShare" hover-class="none">
+      <template data="{{ title: or.title,firstPic: or.firstPic,buyPrice:or.sellingPrice,specsName:or.specsName }}" is="order"/>
+    </navigator>
+    <view class="fs14 ab li">
+      <text>商品数量</text>
+      <text>x{{ or.num }}</text>
+    </view>
+  </view>
+
+  <view class="ohuo ab">
+  <button class="btn goHome" bindtap="fnhome">去商城看看</button>
+  <navigator url="/pages/Main/pages/details/index?id={{or.commodityId}}&shareId={{shareId}}&type=2&time={{time}}&com=orderShare" hover-class="none" class="btn goDetails">我也要买</navigator>
+
+</view>
+
+
+
+</view>

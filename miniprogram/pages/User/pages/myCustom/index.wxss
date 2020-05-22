@@ -1,0 +1,52 @@
+/* miniprogram/pages/User/pages/teamList/index.wxss */
+.card{
+  width: 700rpx;
+  height: 100rpx;
+  margin:0 auto;
+  text-align: center;
+  padding: 60rpx 0 20rpx 0;
+  box-sizing: content-box;
+}
+.t-list-box{
+  padding: 24rpx;
+  margin-top: 50rpx;
+}
+.t-list{
+  padding: 24rpx;
+  box-shadow: 10rpx 10rpx 20rpx #e9e9e9;
+  margin-bottom: 24rpx;
+}
+
+.t-list image{
+  width:100rpx;
+  height:100rpx;
+  margin-right: 24rpx;
+}
+
+.search{
+  width: 640rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  padding:0 24rpx;
+  margin: 0 auto;
+  margin-top:20rpx;
+  background: rgba(255,255,255,.15);
+}
+.ddd{
+  color: #FFBB9A !important;
+}
+
+.my-ma{
+  position: relative;
+  left: 24rpx;
+  text-align: center;
+  margin-right:12rpx;
+}
+.my-ma image{
+  width:34rpx;
+  height:34rpx;
+  margin:0 auto;
+  position:relative;
+  top:8rpx;
+  margin-top:2rpx;
+}

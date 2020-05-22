@@ -1,0 +1,49 @@
+<van-toast id="custom-selector" />
+<view class='nav bg-red' style='height:{{nav.navHeight}}px'>
+  <view class='nav-title'>
+    <text class="fs15 ">达人贡献数据</text>
+    <view class="jiaonang aj not" style="left:{{nav.screenWidth-jiaonang.right}}px;top:{{jiaonang.top}}px;width:{{jiaonang.width}}px;height:{{jiaonang.height}}px;border-radius:{{jiaonang.height}}px;">
+      <view class="tback" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;" bindtap='navBack'></view>
+      <text class="nav-line" style="height:{{jiaonang.height*.5}}px"></text> 
+      <view class="thome" style="width:{{jiaonang.width*.45}}px;height:{{jiaonang.height}}px;"></view>
+    </view>
+  </view>
+</view>
+
+
+
+<view class="box-chart" style='padding-top:{{nav.navHeight}}px'>
+
+  <view class="kuai fff">
+  <!-- 贡献收益 -->
+    <view style="margin-top:24rpx;">
+      <view class="fs14 d-title d1"><i></i>贡献收益</view>
+      <view class="ab">
+        <text class="fs10">达人贡献总额</text>
+        <view class="fs12">
+          <text class="fs10">￥</text>{{ totalProfit }}
+        </view>
+      </view>
+      <view class="ab">
+        <text class="fs10">近7日贡献总额</text>
+        <view class="fs12">
+          <text class="fs10">￥</text>{{ weeklyProfit }}
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="container line-chart">
+    <ec-canvas id="ec" canvas-id="mychart-line"></ec-canvas>
+  </view>
+
+  <ul class="aj fs10 hui">
+      <li class="ai">
+          <span class="x x1" style="margin-right:8rpx;"></span>
+          <span>贡献收益</span>
+      </li>
+  </ul>
+
+
+</view>
